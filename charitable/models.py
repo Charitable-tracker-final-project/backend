@@ -19,7 +19,7 @@ class Donationgoal(models.Model):
     MONTH = "Month"
     YEAR = "Year"
     INTERVAL_DROPDOWN_CHOICES = [(WEEK,"Week"),(MONTH, "Month"), (YEAR, "Year")]
-    Interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
+    interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
 
     def __str__(self):
         return self.goaltitle
@@ -34,17 +34,18 @@ class Volunteergoal(models.Model):
     MONTH = "Month"
     YEAR = "Year"
     INTERVAL_DROPDOWN_CHOICES = [(WEEK,"Week"),(MONTH, "Month"), (YEAR, "Year")]
-    Interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
+    interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
 
     def __str__(self):
         return self.goaltitle
 
 class Donationrecord(models.Model):
     amountdonated = models.IntegerField()
-    created_at = models.DateField(auto_now_add=datetime.now)
+    created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
-    donationreceipt = models.ImageField(upload_to='reciepts')
+    donationreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, related_name = "drecord" )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
 
     #causedropdownlist
     ANIMALS = "Animals"
@@ -75,10 +76,10 @@ class Donationrecord(models.Model):
 
 class Volunteerrecord(models.Model):
     hours = models.IntegerField()
-    created_at = models.DateField(auto_now_add=datetime.now)
+    created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=1000, blank=True)
-    volunteerreceipt = models.ImageField(upload_to='reciepts')
+    volunteerreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, related_name = "vrecord" )
 
     #causedropdownlist
