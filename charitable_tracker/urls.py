@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from charitable import views as cviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/Dgoals/", cviews.DonationGoalListView.as_view()),
+    path("api/Dgoal/<int:pk>/", cviews.DonationGoalDetailView.as_view()),
+    path("api/Vgoals/", cviews.VolunteerGoalListView.as_view()),
+    path("api/Vgoal/<int:pk>/", cviews.VolunteerGoalDetailView.as_view()),
+    path("api/Drecords/", cviews.DonationRecordListView.as_view()),
+    path("api/Drecord/<int:pk>/", cviews.DonationRecordDetailView.as_view()),
+    path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
+    path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
+    path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view())
 ]
