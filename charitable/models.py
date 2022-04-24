@@ -3,11 +3,17 @@ from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 
 class User(AbstractUser):
+    email = models.EmailField(max_length=250)
+    
     def __repr__(self):
         return f"<User username={self.username}>"
 
     def __str__(self):
         return self.username
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user_profile")
+    annual_income = models.IntegerField(null=True, blank=True)
 
 class Donationgoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
@@ -44,7 +50,7 @@ class Donationrecord(models.Model):
     created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
     donationreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
-    donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, related_name = "drecord" )
+    donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
 
     #causedropdownlist
@@ -80,7 +86,7 @@ class Volunteerrecord(models.Model):
     organization = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=1000, blank=True)
     volunteerreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
-    volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, related_name = "vrecord" )
+    volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
 
     #causedropdownlist
     ANIMALS = "Animals"
