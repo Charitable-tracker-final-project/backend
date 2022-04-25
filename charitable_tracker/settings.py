@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import django_on_heroku
 from pathlib import Path
 import environ
+import os
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'charitable',
     'corsheaders',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +140,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "charitable.User"
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'content-disposition',
+]
+
+
+
+AWS_ACCESS_KEY_ID =env("AWS_ACCESS_KEY_ID") 
+AWS_SECRET_ACCESS_KEY =env("AWS_SECRET_ACCESS_KEY") 
+AWS_STORAGE_BUCKET_NAME = 'charitabletracker'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_STATIC_LOCATION = 'static'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'charitable_tracker/static'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'charitable_tracker.storage_backends.PublicMediaStorage'
+
+AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
+PRIVATE_FILE_STORAGE = 'charitable_tracker.storage_backends.PrivateMediaStorage'
+
+
 
 
 django_on_heroku.settings(locals())

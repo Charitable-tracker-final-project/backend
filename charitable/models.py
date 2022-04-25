@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
+from charitable_tracker.storage_backends import PrivateMediaStorage
 
 class User(AbstractUser):
     email = models.EmailField(max_length=250)
@@ -49,7 +50,6 @@ class Donationrecord(models.Model):
     amountdonated = models.IntegerField()
     created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
-    donationreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
 
@@ -85,7 +85,6 @@ class Volunteerrecord(models.Model):
     created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=1000, blank=True)
-    volunteerreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
 
     #causedropdownlist
@@ -114,3 +113,8 @@ class Volunteerrecord(models.Model):
 
     def __str__(self):
         return f"Volunteered {str(self.hours)} for {self.organization}"
+
+class Document(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    upload = models.FileField(storage=PrivateMediaStorage())

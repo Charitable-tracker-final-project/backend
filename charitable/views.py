@@ -2,10 +2,12 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, permissions, viewsets, filters, status
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
-from .models import User, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
+from .models import User, Document, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
 from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer
 from django.db.models import Q
-
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Donationgoal.objects.all()
@@ -56,3 +58,14 @@ class AnnualIncomeView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()    
     serializer_class = ProfileSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+class DocumentCreateView(CreateView):
+    model = Document
+    fields = ['upload', ]
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        documents = Document.objects.all()
+        context['documents'] = documents
+        return context
