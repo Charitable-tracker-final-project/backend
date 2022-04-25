@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, permissions, viewsets, filters, status
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
-from .models import User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
-from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer
+from .models import User, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
+from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer
 from django.db.models import Q
 
 
@@ -52,4 +52,7 @@ class DonationGoalBreakdownView(generics.ListCreateAPIView):
     serializer_class = DonationGoalBreakdownSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
-    
+class AnnualIncomeView(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()    
+    serializer_class = ProfileSerializer
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly

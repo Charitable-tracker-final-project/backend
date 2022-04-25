@@ -27,5 +27,6 @@ urlpatterns = [
     path("api/Drecord/<int:pk>/", cviews.DonationRecordDetailView.as_view()),
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
     path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
-    path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view())
+    path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
+    path("api/annualincome/", cviews.AnnualIncomeView.as_view())
 ]
