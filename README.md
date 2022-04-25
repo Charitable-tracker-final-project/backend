@@ -47,24 +47,24 @@ Tracked Goals will then be displayed in interactive Graphs.
 |  Method  |  Endpoint  |  Description |  Deployed  |
 | -------- | ---------- | ------------ | ---------- |
 |GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals| Yes|
-|POST|[/api/Dgoals/](#Add-a-donation-goal)|Add a donation goal|Yes
-|GET|[/api/Dgoal/<int:pk>/](#View-a-singular-donation-goal)|View a singular donation goal|Yes|
-|PUT|[/api/Dgoal/<int:pk>/](#Edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|
-|DELETE|[/api/goal/<int:pk>/](#Delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|
-|GET|[/api/Vgoals/](#View-all-volunteer-goals)|View all volunteer goals|Yes|
-|POST|[/api/Vgoals/](#Create-a-volunteer-goal)|Create a volunteer goal|Yes|
-|PUT|[/api/Vgoal/<int:pk>/](#Edit-a-volunteer-goal)|Edit a volunteer goal|Yes|
-|Delete|[/api/Vgoal/<int:pk>/](#Delete-a-volunteer-goal)|Delete a volunteer goal|Yes|
+|POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes
+|GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|
+|PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|
+|DELETE|[/api/goal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|
+|GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals|Yes|
+|POST|[/api/Vgoals/](#create-a-volunteer-goal)|Create a volunteer goal|Yes|
+|PUT|[/api/Vgoal/<int:pk>/](#edit-a-volunteer-goal)|Edit a volunteer goal|Yes|
+|Delete|[/api/Vgoal/<int:pk>/](#delete-a-volunteer-goal)|Delete a volunteer goal|Yes|
 |GET|[/api/Drecords/](#View-all-donation-records)|View all donation records|Yes|
 |POST|[/api/Drecords/](#Create-a-new-donation-record)|Create a new donation record||
 |GET|[/api/Drecord/<int:pk>/](#View-a-specific-donation-record)|View a specific donation record|Yes|
 |PUT|[/api/Drecord/<int:pk>/](#Edit-a-specific-donation-record)|Edit a specific donation record|Yes|
 |DELETE|[/api/Drecord/<int:pk>/](#Delete-a-specific-donation-record)|Delete a specific donation record|Yes|
-|GET|[/api/Vrecords/](#View-all-volunteer-records)|View all volunteer records|Yes|
-|POST|[/api/Vrecords/](#Add-a-volunteer-record)|Add a volunteer record|Yes|
-|GET|[/api/Vrecord/<int:pk>/](#View-a-specific-volunteer-record)|View a specific volunteer record|Yes|
-|PUT|[/api/Vrecord/<int:pk>/](#Edit-a-specific-volunteer-record)|Edit a specific volunteer record|Yes|
-|DELETE|[/api/Vrecord/<int:pk>/](#Delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|
+|GET|[/api/Vrecords/](#view-all-volunteer-goals)|View all volunteer records|Yes|
+|POST|[/api/Vrecords/](#add-a-volunteer-record)|Add a volunteer record|Yes|
+|GET|[/api/Vrecord/<int:pk>/](#view-a-specific-volunteer-record)|View a specific volunteer record|Yes|
+|PUT|[/api/Vrecord/<int:pk>/](#edit-a-specific-volunteer-record)|Edit a specific volunteer record|Yes|
+|DELETE|[/api/Vrecord/<int:pk>/](#delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|
 
 
 <!-------------------------- View all donation goals ------------------------------>
