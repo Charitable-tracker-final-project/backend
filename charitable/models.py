@@ -78,7 +78,7 @@ class Donationrecord(models.Model):
     cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
 
     def __str__(self):
-        return str(self.amountdonated)
+        return f"Donated ${str(self.amountdonated)} to {self.organization}"
 
 class Volunteerrecord(models.Model):
     hours = models.IntegerField()
@@ -113,4 +113,4 @@ class Volunteerrecord(models.Model):
     cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
 
     def __str__(self):
-        return str(self.hours)
+        return f"Volunteered {str(self.hours)} for {self.organization}"
