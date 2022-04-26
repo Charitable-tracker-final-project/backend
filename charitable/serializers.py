@@ -11,7 +11,6 @@ class DonationGoalsSerializers(serializers.ModelSerializer):
         model = Donationgoal
         fields = (
             "pk",
-            "user",
             "goaltitle",
             "donationgoal",
             "interval"
@@ -27,7 +26,6 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
         model = Volunteergoal
         fields = (
             "pk",
-            "user",
             "goaltitle",
             "volunteergoal",
             "interval"
@@ -83,7 +81,6 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
         model = Donationgoal
         fields = (
             "pk",
-            "user",
             "goaltitle",
             "donationgoal",
             "interval",
