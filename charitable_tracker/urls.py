@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from charitable import views as cviews
+from django.urls import re_path as url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('accounts/', include('allauth.urls')),
     path("api/Dgoals/", cviews.DonationGoalListView.as_view()),
     path("api/Dgoal/<int:pk>/", cviews.DonationGoalDetailView.as_view()),
     path("api/Vgoals/", cviews.VolunteerGoalListView.as_view()),
