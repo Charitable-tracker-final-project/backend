@@ -1,4 +1,4 @@
-from .models import User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
+from .models import Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
 from rest_framework import serializers
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
@@ -86,3 +86,9 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "interval",
             "drecord"
         )
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ("annual_income")
