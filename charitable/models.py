@@ -4,7 +4,6 @@ from datetime import datetime
 from charitable_tracker.storage_backends import PrivateMediaStorage
 
 class User(AbstractUser):
-    email = models.EmailField(max_length=250)
     
     def __repr__(self):
         return f"<User username={self.username}>"
@@ -122,4 +121,15 @@ class Document(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField(upload_to="reciepts")
 
-    
+class Emailreminder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user")
+    email = models.EmailField(max_length=250)
+    subscribe = models.BooleanField(default=True)
+
+    #email reminder frequency
+    WEEK = "Week"
+    BIWEEKLY = "Bi-Weekly"
+    MONTH = "Month"
+    YEAR = "Year"
+    FREQUENCY = [(WEEK,"Week"),(BIWEEKLY, "Bi-Weekly"),(MONTH, "Month"), (YEAR, "Year")]
+    frequency = models.CharField(max_length=200, blank=True, choices=FREQUENCY)
