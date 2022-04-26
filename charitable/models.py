@@ -128,8 +128,8 @@ class Emailreminder(models.Model):
 
     #email reminder frequency
     WEEK = "Week"
-    BIWEEKLY = "Bi-Weekly"
+    BIWEEKLY = "BiWeekly"
     MONTH = "Month"
     YEAR = "Year"
-    FREQUENCY = [(WEEK,"Week"),(BIWEEKLY, "Bi-Weekly"),(MONTH, "Month"), (YEAR, "Year")]
+    FREQUENCY = [(WEEK,"Week"),(BIWEEKLY, "BiWeekly"),(MONTH, "Month"), (YEAR, "Year")]
     frequency = models.CharField(max_length=200, blank=True, choices=FREQUENCY)
