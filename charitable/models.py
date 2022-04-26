@@ -16,6 +16,9 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user_profile")
     annual_income = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return f"Annual Income {str(self.annual_income)}"
+
 class Donationgoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
     goaltitle = models.CharField(max_length=100, blank=True)
@@ -117,4 +120,6 @@ class Volunteerrecord(models.Model):
 class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    upload = models.FileField(storage=PrivateMediaStorage())
+    upload = models.ImageField(upload_to="reciepts")
+
+    

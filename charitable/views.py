@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, permissions, viewsets, filters, status
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from .models import User, Document, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
-from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer
+from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer, DocumentSerializer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+from rest_framework.parsers import FileUploadParser
 
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Donationgoal.objects.all()
@@ -59,13 +60,18 @@ class AnnualIncomeView(generics.ListCreateAPIView):
     serializer_class = ProfileSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
-class DocumentCreateView(CreateView):
+class DocumentCreateView(CreateAPIView):
     model = Document
     fields = ['upload', ]
     success_url = reverse_lazy('home')
+    serializer_class = DocumentSerializer
+    parser_classes = [FileUploadParser]
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        documents = Document.objects.all()
-        context['documents'] = documents
-        return context
+    # def create(self, request, *args, **kwargs):
+    #     breakpoint()
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     documents = Document.objects.all()
+    #     context['documents'] = documents
+    #     return context
