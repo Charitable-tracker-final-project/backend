@@ -7,6 +7,8 @@ from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, Do
 from django.db.models import Q
 
 
+
+
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Donationgoal.objects.all()
     serializer_class = DonationGoalsSerializers

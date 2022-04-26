@@ -15,6 +15,9 @@ django-on-heroku = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 pillow = "*"
+dj-rest-auth = {extras = ["with_social"], version = "*"}
+django-rest-framework = "*"
+django-allauth = "*"
 
 [dev-packages]
 
