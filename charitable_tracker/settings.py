@@ -178,6 +178,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_STATIC_LOCATION = 'static'
+USE_S3=True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'charitable_tracker/static'),
