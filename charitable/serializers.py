@@ -96,7 +96,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class DocumentSerializer(serializers.ModelSerializer):
-    upload = serializers.ImageField()
+    upload = serializers.ImageField(required=False)
     
     class Meta:
         model = Document 

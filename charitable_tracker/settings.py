@@ -182,6 +182,7 @@ if env("USE_S3"):
     AWS_PRIVATE_MEDIA_LOCATION = "media/private"
     AWS_PUBLIC_MEDIA_LOCATION = "media/public"
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STATIC_FILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 
 MEDIA_URL = "/media/"
@@ -190,6 +191,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # LOGIN_REDIRECT_URL = "/"
 CSRF_TRUSTED_ORIGINS=["http://127.0.0.1:8000", "https://*.netlify.app/", "https://charitable-tracker.herokuapp.com/"]
+
+
 
 
 REST_FRAMEWORK = {

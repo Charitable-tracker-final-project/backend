@@ -40,6 +40,4 @@ urlpatterns = [
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api/reminders/', cviews.EmailReminderView.as_view()),
     path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login'),
-]
-
-static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

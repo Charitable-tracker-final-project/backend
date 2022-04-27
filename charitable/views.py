@@ -1,9 +1,39 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework import generics, permissions, viewsets, filters, status
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, CreateAPIView
-from .models import User, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document, Emailreminder
-from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer, VolunteerGoalBreakdownSerializer, DocumentSerializer, EmailReminderSerializer
+from rest_framework import (
+    generics,
+    permissions, 
+    viewsets,
+    filters,
+    status
+)
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveUpdateDestroyAPIView,
+    ListCreateAPIView,
+    CreateAPIView
+)
+from .models import (
+    User,
+    Profile,
+    Donationrecord,
+    Volunteerrecord,
+    Volunteergoal,
+    Donationgoal,
+    Document,
+    Emailreminder
+)
+from .serializers import ( 
+    DonationGoalsSerializers,
+    VolunteerGoalsSerializers,
+    DonationRecordSerializers,
+    VolunteerRecordSerializers,
+    DonationGoalBreakdownSerializer,
+    ProfileSerializer,
+    VolunteerGoalBreakdownSerializer,
+    DocumentSerializer,
+    EmailReminderSerializer
+)
 from django.db.models import Q
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
@@ -90,21 +120,20 @@ class AnnualIncomeView(generics.ListCreateAPIView):
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
 class DocumentCreateView(CreateAPIView):
-    model = Document
-    fields = ['upload', ]
-    success_url = reverse_lazy('home')
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
     parser_classes = [FileUploadParser]
 
     def perform_create(self, serializer):
-        # user = self.request.user
+        user = self.request.user
         # the following line is a placeholder until you are able to access a logged in user
-        user = User.objects.first()
+        # user = User.objects.first()
         serializer.save(user=user, upload=self.request.FILES["file"])
 
 class EmailReminderView(ListCreateAPIView):
     queryset = Emailreminder.objects.all()
     serializer_class = EmailReminderSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+
 
