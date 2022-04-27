@@ -20,7 +20,8 @@ from .models import (
     Volunteerrecord,
     Volunteergoal,
     Donationgoal,
-    Document
+    Document,
+    Emailreminder
 )
 from .serializers import ( 
     DonationGoalsSerializers,
@@ -30,7 +31,8 @@ from .serializers import (
     DonationGoalBreakdownSerializer,
     ProfileSerializer,
     VolunteerGoalBreakdownSerializer,
-    DocumentSerializer
+    DocumentSerializer,
+    EmailReminderSerializer
 )
 from django.db.models import Q
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -128,6 +130,10 @@ class DocumentCreateView(CreateAPIView):
         # user = User.objects.first()
         serializer.save(user=user, upload=self.request.FILES["file"])
 
+class EmailReminderView(ListCreateAPIView):
+    queryset = Emailreminder.objects.all()
+    serializer_class = EmailReminderSerializer
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
 
 
