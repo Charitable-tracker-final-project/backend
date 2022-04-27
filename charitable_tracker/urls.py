@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     path("api/Dgoals/", cviews.DonationGoalListView.as_view()),
     path("api/Dgoal/<int:pk>/", cviews.DonationGoalDetailView.as_view()),
     path("api/Vgoals/", cviews.VolunteerGoalListView.as_view()),
@@ -32,12 +32,13 @@ urlpatterns = [
     path("api/Drecord/<int:pk>/", cviews.DonationRecordDetailView.as_view()),
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
     path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
-    path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
+    path("c/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
     path("api/Vbreakdown/<int:pk>/", cviews.VolunteerGoalBreakdownView.as_view()),
     path("api/annualincome/", cviews.AnnualIncomeView.as_view()),
     path("api/upload/", cviews.DocumentCreateView.as_view()),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login')
 ]
 
 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
