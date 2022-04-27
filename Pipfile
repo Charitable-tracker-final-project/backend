@@ -17,6 +17,9 @@ psycopg2-binary = "*"
 pillow = "*"
 django-storages = "*"
 boto3 = "*"
+dj-rest-auth = {extras = ["with_social"], version = "*"}
+django-rest-framework = "*"
+django-allauth = "*"
 
 [dev-packages]
 

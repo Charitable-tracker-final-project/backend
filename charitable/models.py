@@ -4,7 +4,6 @@ from datetime import datetime
 from charitable_tracker.storage_backends import PrivateMediaStorage
 
 class User(AbstractUser):
-    email = models.EmailField(max_length=250)
     
     def __repr__(self):
         return f"<User username={self.username}>"
@@ -89,6 +88,7 @@ class Volunteerrecord(models.Model):
     organization = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=1000, blank=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
 
     #causedropdownlist
     ANIMALS = "Animals"
