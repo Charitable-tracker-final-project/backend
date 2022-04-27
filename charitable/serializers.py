@@ -2,7 +2,6 @@ from .models import Profile, User, Donationrecord, Volunteerrecord, Volunteergoa
 from rest_framework import serializers
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -15,7 +14,6 @@ class DonationGoalsSerializers(serializers.ModelSerializer):
         )
 
 class VolunteerGoalsSerializers(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
 
 
     class Meta:
@@ -38,7 +36,6 @@ class DonationRecordSerializers(serializers.ModelSerializer):
             "amountdonated",
             "created_at",
             "organization",
-            "donationreceipt",
             "cause",
             "donationrecord"
         )
@@ -56,7 +53,6 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
             "created_at",
             "organization",
             "description",
-            "volunteerreceipt",
             "cause",
             "volunteerrecord"
         )
