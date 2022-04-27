@@ -31,7 +31,8 @@ urlpatterns = [
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
     path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
     path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
-    path("api/annualincome/", cviews.AnnualIncomeView.as_view()), 
+    path("api/annualincome/", cviews.AnnualIncomeView.as_view()),
+    path("api/upload/", cviews.DocumentCreateView.as_view()),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
 ]

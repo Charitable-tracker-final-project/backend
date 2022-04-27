@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
+from charitable_tracker.storage_backends import PrivateMediaStorage
 
 class User(AbstractUser):
-    email = models.EmailField(max_length=250)
     
     def __repr__(self):
         return f"<User username={self.username}>"
@@ -14,6 +14,9 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user_profile")
     annual_income = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Annual Income {str(self.annual_income)}"
 
 class Donationgoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
@@ -49,7 +52,6 @@ class Donationrecord(models.Model):
     amountdonated = models.IntegerField()
     created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
-    donationreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
 
@@ -85,8 +87,8 @@ class Volunteerrecord(models.Model):
     created_at = models.DateField()
     organization = models.CharField(max_length=200, blank=True)
     description = models.CharField(max_length=1000, blank=True)
-    volunteerreceipt = models.ImageField(upload_to='reciepts', blank=True, null=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
 
     #causedropdownlist
     ANIMALS = "Animals"
@@ -114,3 +116,10 @@ class Volunteerrecord(models.Model):
 
     def __str__(self):
         return f"Volunteered {str(self.hours)} for {self.organization}"
+
+class Document(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    upload = models.ImageField(upload_to="reciepts")
+
+    
