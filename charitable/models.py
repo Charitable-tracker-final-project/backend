@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 from charitable_tracker.storage_backends import PrivateMediaStorage
+from charitable_tracker import settings
+from django.core.mail import send_mail
 
 class User(AbstractUser):
     
@@ -121,3 +123,27 @@ class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField(upload_to="reciepts")
+
+class Emailreminder(models.Model):
+    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')
+    email = models.EmailField()
+    subscribe = models.BooleanField(default=True)
+    your_reminder = models.CharField(null=True, max_length=1000)
+    WEEK = "Week"
+    BIWEEKLY = "BiWeekly"
+    MONTH = "Month"
+    YEAR = "Year"
+    INTERVAL = [(WEEK,"Week"),(BIWEEKLY, "BiWeekly"),(MONTH, "Month"), (YEAR, "Year")]
+    interval = models.CharField(max_length=200, blank=True, choices=INTERVAL)
+
+    def __str__(self):
+        return self.your_reminder    
+   
+    def mail_create(self):
+        if self.subscribe == True:
+            send_mail(
+                subject=('Friendly Reminder from Charitable Tracker'),
+                message=(f'Hi {self.user}. {self.your_reminder}.'),
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[self.email]
+                )

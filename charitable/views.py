@@ -33,18 +33,20 @@ from .serializers import (
     DocumentSerializer
 )
 from django.db.models import Q
-# from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-# from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-# from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 
-# class GoogleLogin(SocialLoginView): # if you want to use Authorization Code Grant, use this
-#     adapter_class = GoogleOAuth2Adapter
-#     callback_url = CALLBACK_URL_YOU_SET_ON_GOOGLE
-#     client_class = OAuth2Client
+class GoogleLogin(SocialLoginView): 
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = 'http://127.0.0.1:8000/accounts/google/login/callback/'
+    client_class = OAuth2Client
 
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from rest_framework.parsers import FileUploadParser
+from django.core.mail import send_mail
+from charitable_tracker import settings
 
 
 class DonationGoalListView(generics.ListCreateAPIView):
