@@ -125,10 +125,10 @@ class Document(models.Model):
     upload = models.ImageField(upload_to="reciepts")
 
 class Emailreminder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')
     email = models.EmailField()
     subscribe = models.BooleanField(default=True)
-    your_reminder = models.CharField(max_length=1000)
+    your_reminder = models.CharField(null=True, max_length=1000)
     WEEK = "Week"
     BIWEEKLY = "BiWeekly"
     MONTH = "Month"
