@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from charitable import views as cviews
 from django.urls import re_path as url
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
