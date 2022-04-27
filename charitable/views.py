@@ -14,6 +14,12 @@ from django.db.models import Q
 #     callback_url = CALLBACK_URL_YOU_SET_ON_GOOGLE
 #     client_class = OAuth2Client
 
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from rest_framework.parsers import FileUploadParser
+
+
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Donationgoal.objects.all()
     serializer_class = DonationGoalsSerializers
@@ -81,3 +87,19 @@ class AnnualIncomeView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()    
     serializer_class = ProfileSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+class DocumentCreateView(CreateAPIView):
+    model = Document
+    fields = ['upload', ]
+    success_url = reverse_lazy('home')
+    serializer_class = DocumentSerializer
+    parser_classes = [FileUploadParser]
+
+    # def create(self, request, *args, **kwargs):
+    #     breakpoint()
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     documents = Document.objects.all()
+    #     context['documents'] = documents
+    #     return context

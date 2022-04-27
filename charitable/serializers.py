@@ -1,4 +1,4 @@
-from .models import Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
+from .models import Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document
 from rest_framework import serializers
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
@@ -94,4 +94,16 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("annual_income")
+        fields = (
+            "annual_income",
+            )
+
+
+class DocumentSerializer(serializers.ModelSerializer):
+    upload = serializers.ImageField()
+    
+    class Meta:
+        model = Document 
+        fields = (
+            "upload",
+        )
