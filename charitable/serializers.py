@@ -4,8 +4,6 @@ from rest_framework import serializers
 class DonationGoalsSerializers(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
-    def get_user(self, obj):
-        return obj.user.username
 
     class Meta:
         model = Donationgoal
@@ -19,8 +17,6 @@ class DonationGoalsSerializers(serializers.ModelSerializer):
 class VolunteerGoalsSerializers(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
 
-    def get_user(self, obj):
-        return obj.user.username
 
     class Meta:
         model = Volunteergoal
@@ -33,10 +29,7 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
 
 class DonationRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    user = serializers.SerializerMethodField()
 
-    def get_user(self, obj):
-        return obj.user.username
 
     class Meta:
         model = Donationrecord
@@ -52,10 +45,8 @@ class DonationRecordSerializers(serializers.ModelSerializer):
 
 class VolunteerRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    user = serializers.SerializerMethodField()
 
-    def get_user(self, obj):
-        return obj.user.username
+
     
     class Meta:
         model = Volunteerrecord
@@ -72,10 +63,7 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
 
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
     drecord = DonationRecordSerializers(many=True, required=False)
-    user = serializers.SerializerMethodField()
-
-    def get_user(self, obj):
-        return obj.user.username
+    
         
     class Meta:
         model = Donationgoal
@@ -85,6 +73,21 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "donationgoal",
             "interval",
             "drecord"
+        )
+
+
+class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
+    vrecord = VolunteerRecordSerializers(many=True, required=False)
+    
+        
+    class Meta:
+        model = Volunteergoal
+        fields = (
+            "pk",
+            "goaltitle",
+            "volunteergoal",
+            "interval",
+            "vrecord"
         )
 
 class ProfileSerializer(serializers.ModelSerializer):

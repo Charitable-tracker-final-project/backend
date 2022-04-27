@@ -65,6 +65,7 @@ Tracked Goals will then be displayed in interactive Graphs.
 |GET|[/api/Vrecord/<int:pk>/](#view-a-specific-volunteer-record)|View a specific volunteer record|Yes|
 |PUT|[/api/Vrecord/<int:pk>/](#edit-a-specific-volunteer-record)|Edit a specific volunteer record|Yes|
 |DELETE|[/api/Vrecord/<int:pk>/](#delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|
+|GET|[/auth/login](#login)|Login|just local so far|
 
 
 <!-------------------------- View all donation goals ------------------------------>
@@ -700,4 +701,35 @@ This can be blank
 
 ```json
 No body returned for response
+```
+
+## Login
+
+```
+PUT  /auth/login
+```
+
+```json
+{
+	"username": "admin",
+	"password": "badpassword"
+}
+
+
+```
+
+### response
+
+```json
+{
+	"key": "fb106dc266d3c98b20f1b969fb9a005435347ec1"
+}
+
+
+```
+
+<!-------------------------- login ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
 ```
