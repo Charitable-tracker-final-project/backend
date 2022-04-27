@@ -38,6 +38,7 @@ urlpatterns = [
     path("api/upload/", cviews.DocumentCreateView.as_view()),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/reminders/', cviews.EmailReminderView.as_view())
 ]
 
 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
