@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import generics, permissions, viewsets, filters, status
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
-from .models import User, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal
-from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer, VolunteerGoalBreakdownSerializer
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, CreateAPIView
+from .models import User, Profile, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document
+from .serializers import DonationGoalsSerializers, VolunteerGoalsSerializers, DonationRecordSerializers, VolunteerRecordSerializers, DonationGoalBreakdownSerializer, ProfileSerializer, VolunteerGoalBreakdownSerializer, DocumentSerializer
 from django.db.models import Q
 # from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 # from allauth.socialaccount.providers.oauth2.client import OAuth2Client
@@ -15,7 +15,6 @@ from django.db.models import Q
 #     client_class = OAuth2Client
 
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from rest_framework.parsers import FileUploadParser
 
