@@ -38,6 +38,4 @@ urlpatterns = [
     path("api/upload/", cviews.DocumentCreateView.as_view()),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
-]
-
-static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

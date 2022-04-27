@@ -121,5 +121,3 @@ class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField(upload_to="reciepts")
-
-    
