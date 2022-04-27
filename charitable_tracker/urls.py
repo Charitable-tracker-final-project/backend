@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from charitable import views as cviews
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +32,4 @@ urlpatterns = [
     path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
     path("api/annualincome/", cviews.AnnualIncomeView.as_view()),
     path("api/upload/", cviews.DocumentCreateView.as_view()),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
