@@ -91,14 +91,12 @@ class DocumentCreateView(CreateAPIView):
     model = Document
     fields = ['upload', ]
     success_url = reverse_lazy('home')
+    queryset = Document.objects.all()
     serializer_class = DocumentSerializer
     parser_classes = [FileUploadParser]
 
-    # def create(self, request, *args, **kwargs):
-    #     breakpoint()
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     documents = Document.objects.all()
-    #     context['documents'] = documents
-    #     return context
+    def perform_create(self, serializer):
+        # user = self.request.user
+        # the following line is a placeholder until you are able to access a logged in user
+        user = User.objects.first()
+        serializer.save(user=user, upload=self.request.FILES["file"])
