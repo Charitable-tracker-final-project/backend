@@ -135,5 +135,8 @@ class EmailReminderView(ListCreateAPIView):
     serializer_class = EmailReminderSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
-
+class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Emailreminder.objects.all()
+    serializer_class = EmailReminderSerializer
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
