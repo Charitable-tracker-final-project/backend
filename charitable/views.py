@@ -1,3 +1,4 @@
+from xml.etree.ElementInclude import include
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import (
@@ -32,7 +33,11 @@ from .serializers import (
     ProfileSerializer,
     VolunteerGoalBreakdownSerializer,
     DocumentSerializer,
-    EmailReminderSerializer
+    EmailReminderSerializer,
+    OrganizationTimeSerializers,
+    OrganizationDonationSerializers,
+    CauseTimeSerializers,
+    CauseDonationSerializers,
 )
 from django.db.models import Q
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -136,4 +141,25 @@ class EmailReminderView(ListCreateAPIView):
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
 
+class OrganizationTime(generics.ListAPIView):
+    queryset = Volunteerrecord.objects.all()
+    serializer_class = OrganizationTimeSerializers
+    
 
+
+class OrganizationDonation(generics.ListAPIView):
+    queryset = Donationrecord.objects.all()
+    serializer_class = OrganizationDonationSerializers
+    
+
+
+class CauseTime(generics.ListAPIView):
+    queryset = Volunteerrecord.objects.all()
+    serializer_class = CauseTimeSerializers
+    
+
+
+class CauseDonation(generics.ListAPIView):
+    queryset = Donationrecord.objects.all()
+    serializer_class = CauseDonationSerializers
+    

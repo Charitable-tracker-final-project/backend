@@ -114,3 +114,44 @@ class EmailReminderSerializer(serializers.ModelSerializer):
             "frequency",
             "your_reminder"
         )
+
+
+class OrganizationTimeSerializers(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Volunteerrecord
+        fields = (
+            "hours",
+            "organization",
+        )
+
+class OrganizationDonationSerializers(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Donationrecord
+        fields = (
+            "amountdonated",
+            "organization",
+        )
+
+class CauseTimeSerializers(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Volunteerrecord
+        fields = (
+            "hours",
+            "cause",
+        )
+
+class CauseDonationSerializers(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Donationrecord
+        fields = (
+            "amountdonated",
+            "cause",
+        )
