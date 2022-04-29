@@ -24,6 +24,7 @@ class Donationgoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
     goaltitle = models.CharField(max_length=100, blank=True)
     donationgoal = models.IntegerField()
+    created_at = models.DateField()
 
     #intervaldropdownlist
     WEEK = "Week"
@@ -39,6 +40,7 @@ class Volunteergoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "volunteer")
     goaltitle = models.CharField(max_length=100, blank=True)
     volunteergoal = models.IntegerField()
+    created_at = models.DateField()
 
     #intervaldropdownlist
     WEEK = "Week"
@@ -123,6 +125,8 @@ class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField(upload_to="reciepts")
+    dreceipt = models.ForeignKey(Donationrecord, null=True, on_delete=models.CASCADE, related_name='dreceipt')
+    vreceipt = models.ForeignKey(Volunteerrecord, null=True, on_delete=models.CASCADE, related_name='vreceipt')
 
 class Emailreminder(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')

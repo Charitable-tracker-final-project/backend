@@ -2,7 +2,7 @@ from .models import Emailreminder, Profile, User, Donationrecord, Volunteerrecor
 from rest_framework import serializers
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
-
+    created_at=serializers.DateField(format="%Y-%m-%d", required=False)
 
     class Meta:
         model = Donationgoal
@@ -10,11 +10,12 @@ class DonationGoalsSerializers(serializers.ModelSerializer):
             "pk",
             "goaltitle",
             "donationgoal",
-            "interval"
+            "interval",
+            'created_at',
         )
 
 class VolunteerGoalsSerializers(serializers.ModelSerializer):
-
+    created_at=serializers.DateField(format="%Y-%m-%d", required=False)
 
     class Meta:
         model = Volunteergoal
@@ -22,7 +23,8 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
             "pk",
             "goaltitle",
             "volunteergoal",
-            "interval"
+            "interval",
+            'created_at',
         )
 
 class DonationRecordSerializers(serializers.ModelSerializer):
