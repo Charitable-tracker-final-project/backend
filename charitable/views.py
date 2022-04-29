@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from django.core.paginator import Paginator
 from rest_framework import (
     generics,
     permissions, 
     viewsets,
     filters,
-    status
+    status,
 )
 from rest_framework.generics import (
     ListAPIView,
@@ -140,3 +141,15 @@ class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
+
+class DonationAllGoalRecordListView(generics.ListCreateAPIView):
+    queryset = Donationrecord.objects.all().order_by('-created_at')
+    serializer_class = DonationRecordSerializers
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+    paginator = Paginator(queryset,10)
+
+
+class VolunteerAllGoalRecordListView(generics.ListCreateAPIView):
+    queryset = Volunteerrecord.objects.all().order_by('-created_at')
+    serializer_class = VolunteerRecordSerializers
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly

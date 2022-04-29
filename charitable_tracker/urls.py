@@ -41,4 +41,6 @@ urlpatterns = [
     path('api/reminders/', cviews.EmailReminderView.as_view()),
     path('api/reminder/<int:pk>/', cviews.EmailReminderDetailView.as_view()),
     path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login'),
+    path('api/Dsort/', cviews.DonationAllGoalRecordListView.as_view()),
+    path('api/Vsort/', cviews.VolunteerAllGoalRecordListView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
