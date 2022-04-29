@@ -28,6 +28,8 @@ urlpatterns = [
     path("api/Dgoal/<int:pk>/", cviews.DonationGoalDetailView.as_view()),
     path("api/Vgoals/", cviews.VolunteerGoalListView.as_view()),
     path("api/Vgoal/<int:pk>/", cviews.VolunteerGoalDetailView.as_view()),
+    path('api/Dallgoals/', cviews.DonationAllGoalListView.as_view()),
+    path('api/Vallgoals/', cviews.VolunteerAllGoalListView.as_view()),
     path("api/Drecords/", cviews.DonationRecordListView.as_view()),
     path("api/Drecord/<int:pk>/", cviews.DonationRecordDetailView.as_view()),
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
