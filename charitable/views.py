@@ -51,49 +51,95 @@ from django.core.mail import send_mail
 from charitable_tracker import settings
 
 
+
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Donationgoal.objects.all()
     serializer_class = DonationGoalsSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Donationgoal.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DonationGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Donationgoal.objects.all()
     serializer_class = DonationGoalsSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Donationgoal.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class VolunteerGoalListView(generics.ListCreateAPIView):
     queryset = Volunteergoal.objects.all()
     serializer_class = VolunteerGoalsSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user)
+        return Volunteergoal.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class VolunteerGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Volunteergoal.objects.all()
     serializer_class = VolunteerGoalsSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user)
+        return Volunteergoal.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DonationRecordListView(generics.ListCreateAPIView):
-    queryset = Donationrecord.objects.all()
     serializer_class = DonationRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly 
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Donationrecord.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Donationrecord.objects.all()
     serializer_class = DonationRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user)
+        return Donationrecord.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class VolunteerRecordListView(generics.ListCreateAPIView):
-    queryset = Volunteerrecord.objects.all()
     serializer_class = VolunteerRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly 
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user)
+        return Volunteerrecord.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class VolunteerRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Volunteerrecord.objects.all()
     serializer_class = VolunteerRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user)
+        return Volunteerrecord.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DonationGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationGoalBreakdownSerializer
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
@@ -105,7 +151,6 @@ class DonationGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
 
 class VolunteerGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VolunteerGoalBreakdownSerializer
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
@@ -117,7 +162,14 @@ class VolunteerGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
 class AnnualIncomeView(generics.ListCreateAPIView):
     queryset = Profile.objects.all()    
     serializer_class = ProfileSerializer
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Profile.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
@@ -131,12 +183,24 @@ class DocumentCreateView(CreateAPIView):
         serializer.save(user=user, upload=self.request.FILES["file"])
 
 class EmailReminderView(ListCreateAPIView):
-    queryset = Emailreminder.objects.all()
     serializer_class = EmailReminderSerializer
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Emailreminder.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Emailreminder.objects.all()
     serializer_class = EmailReminderSerializer
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Emailreminder.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
