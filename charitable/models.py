@@ -24,7 +24,7 @@ class Donationgoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
     goaltitle = models.CharField(max_length=100, blank=True)
     donationgoal = models.IntegerField()
-    created_at = models.DateField()
+    created_at = models.DateField(default=datetime.now)
 
     #intervaldropdownlist
     WEEK = "Week"
@@ -40,7 +40,7 @@ class Volunteergoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "volunteer")
     goaltitle = models.CharField(max_length=100, blank=True)
     volunteergoal = models.IntegerField()
-    created_at = models.DateField()
+    created_at = models.DateField(default=datetime.now)
 
     #intervaldropdownlist
     WEEK = "Week"
