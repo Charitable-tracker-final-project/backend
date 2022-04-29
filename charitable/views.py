@@ -146,12 +146,14 @@ class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializers
     
 
-
 class OrganizationDonation(generics.ListAPIView):
     queryset = Donationrecord.objects.all()
     serializer_class = OrganizationDonationSerializers
     
-
+class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Emailreminder.objects.all()
+    serializer_class = EmailReminderSerializer
+    permissions_classes = permissions.IsAuthenticatedOrReadOnly
 
 class CauseTime(generics.ListAPIView):
     queryset = Volunteerrecord.objects.all()
