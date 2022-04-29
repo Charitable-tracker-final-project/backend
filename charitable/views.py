@@ -1,12 +1,13 @@
 from xml.etree.ElementInclude import include
 from django.shortcuts import render
 from rest_framework.views import APIView
+from django.core.paginator import Paginator
 from rest_framework import (
     generics,
     permissions, 
     viewsets,
     filters,
-    status
+    status,
 )
 from rest_framework.generics import (
     ListAPIView,
@@ -211,9 +212,25 @@ class OrganizationDonation(generics.ListAPIView):
 class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
 
+
+class DonationAllRecordListView(generics.ListCreateAPIView):
+    serializer_class = DonationRecordSerializers
+
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Emailreminder.objects.filter(filters)
+        return Donationrecord.objects.filter(filters).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+
+class VolunteerAllRecordListView(generics.ListCreateAPIView):
+    serializer_class = VolunteerRecordSerializers
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Volunteerrecord.objects.filter(filters).order_by('-created_at')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
