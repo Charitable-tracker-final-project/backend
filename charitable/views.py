@@ -213,16 +213,27 @@ class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
 
 
-class DonationAllGoalRecordListView(generics.ListCreateAPIView):
-    queryset = Donationrecord.objects.all().order_by('-created_at')
+class DonationAllRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Donationrecord.objects.filter(filters).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
-class VolunteerAllGoalRecordListView(generics.ListCreateAPIView):
-    queryset = Volunteerrecord.objects.all().order_by('-created_at')
+
+class VolunteerAllRecordListView(generics.ListCreateAPIView):
     serializer_class = VolunteerRecordSerializers
-    permissions_classes = permissions.IsAuthenticatedOrReadOnly
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Volunteerrecord.objects.filter(filters).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class CauseTime(generics.ListAPIView):
