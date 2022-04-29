@@ -217,19 +217,12 @@ class DonationAllGoalRecordListView(generics.ListCreateAPIView):
     queryset = Donationrecord.objects.all().order_by('-created_at')
     serializer_class = DonationRecordSerializers
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
-    paginator = Paginator(queryset,10)
 
 
 class VolunteerAllGoalRecordListView(generics.ListCreateAPIView):
     queryset = Volunteerrecord.objects.all().order_by('-created_at')
     serializer_class = VolunteerRecordSerializers
     permissions_classes = permissions.IsAuthenticatedOrReadOnly
-    def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Emailreminder.objects.filter(filters)
-    
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 class CauseTime(generics.ListAPIView):
