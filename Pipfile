@@ -20,6 +20,9 @@ boto3 = "*"
 dj-rest-auth = {extras = ["with_social"], version = "*"}
 django-rest-framework = "*"
 django-allauth = "*"
+celery = "*"
+redis = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 

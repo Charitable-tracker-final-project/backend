@@ -64,7 +64,7 @@ class DonationGoalListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Donationgoal.objects.filter(filters)
+        return Donationgoal.objects.filter(filters).order_by('-created_at')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -86,7 +86,7 @@ class VolunteerGoalListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
-        return Volunteergoal.objects.filter(filters)
+        return Volunteergoal.objects.filter(filters).order_by('-created_at')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -165,8 +165,17 @@ class VolunteerGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class AnnualIncomeView(generics.ListCreateAPIView):
-    queryset = Profile.objects.all()    
+class AnnualIncomeView(generics.ListCreateAPIView):   
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Profile.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class AnnualIncomeDetailView(generics.RetrieveUpdateDestroyAPIView):   
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
@@ -197,8 +206,11 @@ class EmailReminderView(ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        reminder = serializer.instance
+        reminder.mail_create()
 
-
+class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = EmailReminderSerializer
 
 class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializers
@@ -221,10 +233,6 @@ class OrganizationDonation(generics.ListAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
     
-class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = EmailReminderSerializer
-
-
 class DonationAllRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializers
 
@@ -263,29 +271,9 @@ class CauseDonation(generics.ListAPIView):
     serializer_class = CauseDonationSerializers
 
     def get_queryset(self):
-        filters = Q(user=self.request.user)
+        filters = Q(user=self.request.user) 
         return Donationrecord.objects.filter(filters)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class VolunteerAllGoalListView(generics.ListCreateAPIView):
-    serializer_class = VolunteerGoalsSerializers
-
-    def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Volunteergoal.objects.filter(filters).order_by('-created_at')
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-class DonationAllGoalListView(generics.ListCreateAPIView):
-    serializer_class = DonationGoalsSerializers
-
-    def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Donationgoal.objects.filter(filters).order_by('-created_at')
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
