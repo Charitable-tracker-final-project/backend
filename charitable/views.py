@@ -216,7 +216,7 @@ class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializers
 
     def get_queryset(self):
-        filters = Q(user=self.request.user) & Q(organization=self.request.user)
+        filters = Q(user=self.request.user)
         return Volunteerrecord.objects.filter(filters)
     
     def perform_create(self, serializer):
