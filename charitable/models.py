@@ -53,10 +53,17 @@ class Volunteergoal(models.Model):
     def __str__(self):
         return self.goaltitle
 
+class Organization(models.Model):
+    organization = models.CharField(max_length=200, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "ouser", blank=True, null=True)
+
+    def __str__(self):
+        return self.organization
+
 class Donationrecord(models.Model):
     amountdonated = models.IntegerField()
     created_at = models.DateField()
-    organization = models.CharField(max_length=200, blank=True)
+    organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationdonationrecord" )
     donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
 
@@ -90,7 +97,7 @@ class Donationrecord(models.Model):
 class Volunteerrecord(models.Model):
     hours = models.IntegerField()
     created_at = models.DateField()
-    organization = models.CharField(max_length=200, blank=True)
+    organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationvolunteerrecord" )
     description = models.CharField(max_length=1000, blank=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
@@ -153,3 +160,6 @@ class Emailreminder(models.Model):
             #     from_email=settings.EMAIL_HOST_USER,
             #     recipient_list=[self.email]
             #     )
+
+
+

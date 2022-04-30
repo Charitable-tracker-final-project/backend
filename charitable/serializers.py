@@ -1,4 +1,4 @@
-from .models import Emailreminder, Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document, Emailreminder
+from .models import Emailreminder, Organization, Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document, Emailreminder
 from rest_framework import serializers
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
@@ -117,7 +117,7 @@ class EmailReminderSerializer(serializers.ModelSerializer):
 
 
 class OrganizationTimeSerializers(serializers.ModelSerializer):
-
+    
 
     class Meta:
         model = Volunteerrecord
@@ -125,13 +125,23 @@ class OrganizationTimeSerializers(serializers.ModelSerializer):
             "hours",
             "organization",
         )
+class OrganizationSerializer(serializers.ModelSerializer):
+    organizationdonationrecord=DonationRecordSerializers(many=True, required=False)
+
+    class Meta:
+        model = Organization
+        fields = (
+        "organization",
+        "organizationdonationrecord",
+        )
 
 class OrganizationDonationSerializers(serializers.ModelSerializer):
-
+    
 
     class Meta:
         model = Donationrecord
         fields = (
+            "pk",
             "amountdonated",
             "organization",
         )

@@ -70,7 +70,7 @@ Tracked Goals will then be displayed in interactive Graphs.
 |PUT|[/api/Vgoal/<int:pk>/](#edit-a-volunteer-goal)|Edit a volunteer goal|Yes|
 |Delete|[/api/Vgoal/<int:pk>/](#delete-a-volunteer-goal)|Delete a volunteer goal|Yes|
 |GET|[/api/Drecords/](#View-all-donation-records)|View all donation records|Yes|
-|POST|[/api/Drecords/](#Create-a-new-donation-record)|Create a new donation record||
+|POST|[/api/Drecords/](#Create-a-new-donation-record)|Create a new donation record|Yes|
 |GET|[/api/Drecord/<int:pk>/](#View-a-specific-donation-record)|View a specific donation record|Yes|
 |PUT|[/api/Drecord/<int:pk>/](#Edit-a-specific-donation-record)|Edit a specific donation record|Yes|
 |DELETE|[/api/Drecord/<int:pk>/](#Delete-a-specific-donation-record)|Delete a specific donation record|Yes|
@@ -173,7 +173,8 @@ GET /Add a donation goal/
 ## View a singular donation goal
 
 ```
-GET /View a singular donation goal/
+GET /View a singular donation goal/ 
+https://charitable-tracker.herokuapp.com/api/Dgoals/<int:pk>/
 ```
 
 ```json
@@ -398,7 +399,7 @@ No body returned for response
 
 ```
 GET /View all volunteer goals filter from newest to oldest/ 
-api/Vallgoals/
+api/Vgoals/
 ```
 
 ```json

@@ -16,6 +16,7 @@ from rest_framework.generics import (
     CreateAPIView
 )
 from .models import (
+    Organization,
     User,
     Profile,
     Donationrecord,
@@ -39,6 +40,7 @@ from .serializers import (
     OrganizationDonationSerializers,
     CauseTimeSerializers,
     CauseDonationSerializers,
+    OrganizationSerializer,
 )
 from django.db.models import Q
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -186,7 +188,18 @@ class AnnualIncomeDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer.save(user=self.request.user)
 
 
-class DocumentCreateView(CreateAPIView):
+class DocumentCreateView(ListCreateAPIView):
+    queryset = Document.objects.all()
+    serializer_class = DocumentSerializer
+    parser_classes = [FileUploadParser]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        # the following line is a placeholder until you are able to access a logged in user
+        # user = User.objects.first()
+        serializer.save(user=user, upload=self.request.FILES["file"])
+
+class DocumentDetailView(generics.RetrieveUpdateDestroyAPIView):   
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
     parser_classes = [FileUploadParser]
@@ -216,7 +229,7 @@ class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializers
 
     def get_queryset(self):
-        filters = Q(user=self.request.user) & Q(organization=self.request.user)
+        filters = Q(user=self.request.user)
         return Volunteerrecord.objects.filter(filters)
     
     def perform_create(self, serializer):
@@ -227,8 +240,19 @@ class OrganizationDonation(generics.ListAPIView):
     serializer_class = OrganizationDonationSerializers
 
     def get_queryset(self):
-        filters = Q(user=self.request.user)
+        filters = Q(user=self.request.user) 
         return Donationrecord.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OrganizationDonationview(generics.ListAPIView):
+    serializer_class = OrganizationSerializer
+
+    def get_queryset(self):
+        filters = Q(user=self.request.user) 
+        return Organization.objects.filter(filters)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
