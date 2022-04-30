@@ -86,14 +86,14 @@ Tracked Goals will then be displayed in interactive Graphs.
 |DELETE|[api/annualincome/<int:pk>/](#delete-how-much-each-user-makes)|Delete How much Each user Makes|Yes|
 |POST|[/api/upload/](#upload-img)|Upload Img|Yes|
 |GET|[/api/reminders/](#view-all-reminders)|View All Reminders|No|
-|POST|[/api/reminders/]|Add a Reminder|No|
+|POST|[/api/reminders/]()|Add a Reminder|No|
 |PUT|[/api/reminders/<int:pk>/]|Edit a Reminder|No|
 |DELETE|[/api/reminders/<int:pk>/]|Delete a Reminder|NO|
 |POST|[/auth/registration/](#registration)|regiestration|Yes|
-|GET|[/api/causetime/]|View cause and time||
-|GET|[/api/causedonation/]|View cause and donation||
-|GET|[/api/organizationtime/]|View organization and time||
-|GET|[/api/organizationdonation/]|View organization and donation||
+|GET|[/api/causetime/](#view-cause-and-time)|View cause and time||
+|GET|[/api/causedonation/](#view-cause-and-donation)|View cause and donation||
+|GET|[/api/organizationtime/](#view-organization-and-time)|View organization and time||
+|GET|[/api/organizationdonation/](#view-organization-and-donation)|View organization and donation||
 |||||
 |||||
 |||||
@@ -141,17 +141,16 @@ This Can be Empty
 ## Add a donation goal
 
 ```
-GET /Add a donation goal/
+POST /api/Dgoals/
 ```
 
 
 ```json
 {
-	
-	"user": 1,
-	"goaltitle": "Lovely Ladies",
-	"donationgoal": 50,
-	"interval": "Year"
+"goaltitle": "Wy are u working",
+"donationgoal": 5,
+"interval": "Week",
+"created_at": "2022-04-30"
 }
 
 ```
@@ -161,12 +160,12 @@ GET /Add a donation goal/
 ```json
 
 {
-	"pk": 2,
-	"user": 1,
-	"goaltitle": "Lovely Ladies",
-	"donationgoal": 50,
-	"interval": "Year"
-}
+	"pk": 11,
+	"goaltitle": "hello osama",
+	"donationgoal": 5,
+	"interval": "Week",
+	"created_at": "2022-04-30"
+},
 
 
 ```
