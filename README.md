@@ -86,8 +86,16 @@ Tracked Goals will then be displayed in interactive Graphs.
 |POST|[/api/reminders/]|Add a Reminder|No|
 |PUT|[/api/reminders/<int:pk>/]|Edit a Reminder|No|
 |DELETE|[/api/reminders/<int:pk>/]|Delete a Reminder|NO|
+|POST|[/auth/registration/](#registration)|regiestration|Yes|
+|GET|[/api/causetime/]|View cause and time||
+|GET|[/api/causedonation/]|View cause and donation||
+|GET|[/api/organizationtime/]|View organization and time||
+|GET|[/api/organizationdonation/]|View organization and donation||
 |||||
 |||||
+|||||
+|||||
+
 
 <!-------------------------- View all donation goals ------------------------------>
 
@@ -838,5 +846,188 @@ This Can be Empty
 	"your_reminder": "Hey u are awsome"
 }
 
+
+```
+
+<!-------------------------- registration ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## registration
+
+```
+POST  /auth/registration/
+```
+
+```json
+{
+	"username":"insomniatest",
+	"password1":"o76218333",
+	"password2":"o76218333"
+}
+
+
+```
+
+### response
+
+```json
+{
+	"key": "45973839a6219a439d9ae6608904b6c35abee88e"
+}
+
+
+```
+
+<!-------------------------- View cause and time ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## View cause and time
+
+```
+GET  /api/causetime/
+```
+
+```json
+
+This Can Be blank
+
+```
+
+### response
+
+```json
+
+{
+	"hours": 1,
+	"cause": "Women's Rights"
+},
+{
+	"hours": 3,
+	"cause": "Women's Rights"
+}
+]
+
+```
+
+<!-------------------------- View cause and donation ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## View cause and donation
+
+```
+GET  /api/causedonation/
+```
+
+```json
+
+This Can Be blank
+
+```
+
+### response
+
+```json
+{
+	"amountdonated": 1,
+	"cause": "Women's Rights"
+},
+{
+	"amountdonated": 2,
+	"cause": "Women's Rights"
+
+```
+
+<!-------------------------- View cause and donation ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## View cause and donation
+
+```
+GET  /api/causedonation/
+```
+
+```json
+
+This Can Be blank
+
+```
+
+### response
+
+```json
+{
+	"amountdonated": 1,
+	"cause": "Women's Rights"
+},
+{
+	"amountdonated": 2,
+	"cause": "Women's Rights"
+
+```
+
+<!-------------------------- View organization and time ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## View organization and time
+
+```
+GET  /api/organizationtime/
+```
+
+```json
+
+This Can Be blank
+
+```
+
+### response
+
+```json
+
+{
+	"hours": 1,
+	"organization": "womens rights"
+},
+{
+	"hours": 3,
+	"organization": "womens rights"
+}
+
+
+```
+
+<!-------------------------- View organization and donation ------------------------------>
+
+[Back to Endpoints](#api-endpoints)
+
+## View organization and donation
+
+```
+GET  /api/organizationdonation/
+```
+
+```json
+
+This Can Be blank
+
+```
+
+### response
+
+```json
+
+{
+	"amountdonated": 1,
+	"organization": "womens rights"
+},
+{
+	"amountdonated": 2,
+	"organization": "womens rights"
+}
 
 ```
