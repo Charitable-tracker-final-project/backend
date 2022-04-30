@@ -60,12 +60,12 @@ Tracked Goals will then be displayed in interactive Graphs.
 
 |  Method  |  Endpoint  |  Description |  Deployed  |
 | -------- | ---------- | ------------ | ---------- |
-|GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals| Yes|
+|GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals filter form newest to oldest| Yes|
 |POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes
 |GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|
 |PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|
 |DELETE|[/api/Dgoal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|
-|GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals|Yes|
+|GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals filter from newest to oldest|Yes|
 |POST|[/api/Vgoals/](#create-a-volunteer-goal)|Create a volunteer goal|Yes|
 |PUT|[/api/Vgoal/<int:pk>/](#edit-a-volunteer-goal)|Edit a volunteer goal|Yes|
 |Delete|[/api/Vgoal/<int:pk>/](#delete-a-volunteer-goal)|Delete a volunteer goal|Yes|
@@ -81,11 +81,16 @@ Tracked Goals will then be displayed in interactive Graphs.
 |DELETE|[/api/Vrecord/<int:pk>/](#delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|
 |GET|[/auth/login](#login)|Login|Yes|
 |GET|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|
+|POST|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|
+|PUT|[api/annualincome/<int:pk>/](#edit-how-much-each-user-makes)|Edit How much Each user Makes|Yes|
+|DELETE|[api/annualincome/<int:pk>/](#delete-how-much-each-user-makes)|Delete How much Each user Makes|Yes|
 |POST|[/api/upload/](#upload-img)|Upload Img|Yes|
 |GET|[/api/reminders/](#view-all-reminders)|View All Reminders|No|
 |POST|[/api/reminders/]|Add a Reminder|No|
 |PUT|[/api/reminders/<int:pk>/]|Edit a Reminder|No|
 |DELETE|[/api/reminders/<int:pk>/]|Delete a Reminder|NO|
+|||||
+|||||
 |||||
 |||||
 
@@ -97,7 +102,7 @@ Tracked Goals will then be displayed in interactive Graphs.
 ## View all donation goals
 
 ```
-GET /View all donation goals/
+GET /View all donation goals no filter/
 ```
 
 ```json
@@ -254,7 +259,7 @@ No body returned for response
 ## View all volunteer goals
 
 ```
-GET /View all volunteer goals/
+GET /View all volunteer goals no filter/
 ```
 
 ```json
@@ -382,6 +387,56 @@ This Can be Empty
 
 ```json
 No body returned for response
+```
+
+<!-------------------------- View all volunteer goals ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## View all volunteer goals
+
+```
+GET /View all volunteer goals filter from newest to oldest/ 
+api/Vallgoals/
+```
+
+```json
+This Can be blank
+```
+
+### response
+
+```json
+[
+	{
+		"pk": 1,
+		"hours": 5,
+		"created_at": "2022-04-28",
+		"organization": "Bellevue Presbyterian Church",
+		"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
+		"cause": "Religion",
+		"volunteerrecord": 2
+	},
+	{
+		"pk": 3,
+		"hours": 1,
+		"created_at": "2022-04-28",
+		"organization": "Steve's Place",
+		"description": "Worked in the soup kitchen for the men's shelter",
+		"cause": "Community Development",
+		"volunteerrecord": 3
+	},
+	{
+		"pk": 2,
+		"hours": 25,
+		"created_at": "2022-04-28",
+		"organization": "Red Cross of Canada",
+		"description": "Went on trip to help survivors of mudslides in British Columbia",
+		"cause": "Human Services",
+		"volunteerrecord": 3
+	}
+]
 ```
 
 <!-------------------------- View all donation records ------------------------------>
@@ -760,19 +815,19 @@ POST  /auth/login
 ```
 
 
-<!-------------------------- How much Each user Makes ------------------------------>
+<!-------------------------- List how much Each user Makes ------------------------------>
 
 
 [Back to Endpoints](#api-endpoints)
 
-## How much Each user Makes
+## List How much Each user Makes
 
 ```
 GET  How much Each user Makes
 ```
 
 ```json
-Not Sure yet no data in database
+None
 
 ```
 
@@ -781,6 +836,81 @@ Not Sure yet no data in database
 ```json
 Not Sure yet no data in database
 ```
+
+<!-------------------------- Create how much each user makes ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## Create how much each user makes
+
+```
+POST  Create how much each user makes
+```
+
+```json
+{
+	"annual_income": 40000
+}
+
+```
+
+### response
+
+```json
+{
+	"annual_income": 40000
+}
+```
+
+<!-------------------------- Edit how much each user makes ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## Edit how much each user makes
+
+```
+PATCH  Edit how much each user makes
+```
+
+```json
+{
+	"annual_income": 30000
+}
+
+```
+
+### response
+
+```json
+{
+	"annual_income": 30000
+}
+```
+
+
+<!-------------------------- DELETE how much each user makes ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## DELETE how much each user makes
+
+```
+DELETE  DELETE how much each user makes
+```
+
+```json
+None
+```
+
+### response
+
+```json
+None
+```
+
 
 <!-------------------------- Upload Img ------------------------------>
 
