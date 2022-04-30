@@ -45,8 +45,6 @@ class DonationRecordSerializers(serializers.ModelSerializer):
 class VolunteerRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
 
-
-    
     class Meta:
         model = Volunteerrecord
         fields = (
@@ -113,7 +111,7 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         fields = (
             "email",
             "subscribe",
-            "frequency",
+            "interval",
             "your_reminder"
         )
 
