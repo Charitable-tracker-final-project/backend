@@ -41,6 +41,7 @@ urlpatterns = [
     path("api/causedonation/", cviews.CauseDonation.as_view()),
     path("api/causetime/", cviews.CauseTime.as_view()),
     path("api/annualincome/", cviews.AnnualIncomeView.as_view()),
+    path("api/editannualincome/", cviews.EditAnnualIncomeView.as_view()),
     path("api/upload/", cviews.DocumentCreateView.as_view()),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),

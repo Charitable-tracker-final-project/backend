@@ -13,7 +13,8 @@ from rest_framework.generics import (
     ListAPIView,
     RetrieveUpdateDestroyAPIView,
     ListCreateAPIView,
-    CreateAPIView
+    CreateAPIView,
+    UpdateAPIView
 )
 from .models import (
     User,
@@ -176,6 +177,15 @@ class AnnualIncomeView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+class EditAnnualIncomeView(UpdateAPIView):
+    serializer_class=ProfileSerializer
+    
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Profile.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class DocumentCreateView(CreateAPIView):
     queryset = Document.objects.all()
