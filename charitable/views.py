@@ -206,8 +206,11 @@ class EmailReminderView(ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        reminder = serializer.instance
+        reminder.mail_create()
 
-
+class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = EmailReminderSerializer
 
 class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializers
@@ -230,10 +233,6 @@ class OrganizationDonation(generics.ListAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
     
-class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = EmailReminderSerializer
-
-
 class DonationAllRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializers
 

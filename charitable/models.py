@@ -4,6 +4,7 @@ from datetime import datetime
 from charitable_tracker.storage_backends import PrivateMediaStorage
 from charitable_tracker import settings
 from django.core.mail import send_mail
+from .tasks import mail_create
 
 class User(AbstractUser):
     
@@ -133,21 +134,22 @@ class Emailreminder(models.Model):
     email = models.EmailField()
     subscribe = models.BooleanField(default=True)
     your_reminder = models.CharField(null=True, max_length=1000)
-    WEEK = "Week"
+    WEEK = "Weekly"
     BIWEEKLY = "BiWeekly"
-    MONTH = "Month"
-    YEAR = "Year"
-    INTERVAL = [(WEEK,"Week"),(BIWEEKLY, "BiWeekly"),(MONTH, "Month"), (YEAR, "Year")]
+    MONTH = "Monthly"
+    YEAR = "Yearly"
+    INTERVAL = [(WEEK,"Weekly"),(BIWEEKLY, "BiWeekly"),(MONTH, "Monthly"), (YEAR, "Yearly")]
     interval = models.CharField(max_length=200, blank=True, choices=INTERVAL)
 
     def __str__(self):
         return self.your_reminder    
-   
+
     def mail_create(self):
         if self.subscribe == True:
-            send_mail(
-                subject=('Friendly Reminder from Charitable Tracker'),
-                message=(f'Hi {self.user}. {self.your_reminder}.'),
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[self.email]
-                )
+            mail_create.apply_async()
+            # send_mail(
+            #     subject=('Friendly Reminder from Charitable Tracker'),
+            #     message=(f'Hi {self.user}. {self.your_reminder}.'),
+            #     from_email=settings.EMAIL_HOST_USER,
+            #     recipient_list=[self.email]
+            #     )
