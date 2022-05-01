@@ -279,27 +279,5 @@ class CauseDonation(generics.ListAPIView):
         serializer.save(user=self.request.user)
 
 
-class DonationAllRecordListView(generics.ListCreateAPIView):
-    serializer_class = DonationRecordSerializers
-
-    def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Donationrecord.objects.filter(filters).order_by('-created_at')
-    
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-
-class VolunteerAllRecordListView(generics.ListCreateAPIView):
-    serializer_class = VolunteerRecordSerializers
-
-    def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Volunteerrecord.objects.filter(filters).order_by('-created_at')
-    
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
 
 
