@@ -36,11 +36,10 @@ from .serializers import (
     VolunteerGoalBreakdownSerializer,
     DocumentSerializer,
     EmailReminderSerializer,
-    OrganizationTimeSerializers,
-    OrganizationDonationSerializers,
     CauseTimeSerializers,
     CauseDonationSerializers,
-    OrganizationSerializer,
+    OrganizationDonationSerializer,
+    OrganizationTimeSerializer,
 )
 from django.db.models import Q
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -226,29 +225,29 @@ class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
 
 class OrganizationTime(generics.ListAPIView):
-    serializer_class = OrganizationTimeSerializers
+    serializer_class = OrganizationTimeSerializer
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Volunteerrecord.objects.filter(filters)
+        return Organization.objects.filter(filters)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
     
 
-class OrganizationDonation(generics.ListAPIView):
-    serializer_class = OrganizationDonationSerializers
+# class OrganizationDonation(generics.ListAPIView):
+#     serializer_class = OrganizationDonationSerializers
 
-    def get_queryset(self):
-        filters = Q(user=self.request.user) 
-        return Donationrecord.objects.filter(filters)
+#     def get_queryset(self):
+#         filters = Q(user=self.request.user) 
+#         return Donationrecord.objects.filter(filters)
     
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
 
 
 class OrganizationDonationview(generics.ListAPIView):
-    serializer_class = OrganizationSerializer
+    serializer_class = OrganizationDonationSerializer
 
     def get_queryset(self):
         filters = Q(user=self.request.user) 

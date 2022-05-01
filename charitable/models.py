@@ -17,6 +17,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user_profile")
     annual_income = models.IntegerField(null=True, blank=True)
+    profile_pic = models.URLField(max_length=500, blank=True)
 
     def __str__(self):
         return f"Annual Income {str(self.annual_income)}"
@@ -56,6 +57,8 @@ class Volunteergoal(models.Model):
 class Organization(models.Model):
     organization = models.CharField(max_length=200, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "ouser", blank=True, null=True)
+    donationgoal = models.ForeignKey(Donationgoal, on_delete=models.CASCADE, related_name = "donationgoalorg", blank=True, null=True)
+    volunteergoal = models.ForeignKey(Volunteergoal, on_delete=models.CASCADE, related_name = "volunteergoalorg", blank=True, null=True)
 
     def __str__(self):
         return self.organization

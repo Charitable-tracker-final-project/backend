@@ -58,46 +58,44 @@ Tracked Goals will then be displayed in interactive Graphs.
 
 ## API Endpoints
 
-|  Method  |  Endpoint  |  Description |  Deployed  |
-| -------- | ---------- | ------------ | ---------- |
-|GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals filter form newest to oldest| Yes|
-|POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes
-|GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|
-|PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|
-|DELETE|[/api/Dgoal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|
-|GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals filter from newest to oldest|Yes|
-|POST|[/api/Vgoals/](#create-a-volunteer-goal)|Create a volunteer goal|Yes|
-|PUT|[/api/Vgoal/<int:pk>/](#edit-a-volunteer-goal)|Edit a volunteer goal|Yes|
-|Delete|[/api/Vgoal/<int:pk>/](#delete-a-volunteer-goal)|Delete a volunteer goal|Yes|
-|GET|[/api/Drecords/](#View-all-donation-records)|View all donation records|Yes|
-|POST|[/api/Drecords/](#Create-a-new-donation-record)|Create a new donation record|Yes|
-|GET|[/api/Drecord/<int:pk>/](#View-a-specific-donation-record)|View a specific donation record|Yes|
-|PUT|[/api/Drecord/<int:pk>/](#Edit-a-specific-donation-record)|Edit a specific donation record|Yes|
-|DELETE|[/api/Drecord/<int:pk>/](#Delete-a-specific-donation-record)|Delete a specific donation record|Yes|
-|GET|[/api/Vrecords/](#view-all-volunteer-goals)|View all volunteer records|Yes|
-|POST|[/api/Vrecords/](#add-a-volunteer-record)|Add a volunteer record|Yes|
-|GET|[/api/Vrecord/<int:pk>/](#view-a-specific-volunteer-record)|View a specific volunteer record|Yes|
-|PUT|[/api/Vrecord/<int:pk>/](#edit-a-specific-volunteer-record)|Edit a specific volunteer record|Yes|
-|DELETE|[/api/Vrecord/<int:pk>/](#delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|
-|GET|[/auth/login](#login)|Login|Yes|
-|GET|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|
-|POST|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|
-|PUT|[api/annualincome/<int:pk>/](#edit-how-much-each-user-makes)|Edit How much Each user Makes|Yes|
-|DELETE|[api/annualincome/<int:pk>/](#delete-how-much-each-user-makes)|Delete How much Each user Makes|Yes|
-|POST|[/api/upload/](#upload-img)|Upload Img|Yes|
-|GET|[/api/reminders/](#view-all-reminders)|View All Reminders|No|
-|POST|[/api/reminders/]()|Add a Reminder|No|
-|PUT|[/api/reminders/<int:pk>/]|Edit a Reminder|No|
-|DELETE|[/api/reminders/<int:pk>/]|Delete a Reminder|NO|
-|POST|[/auth/registration/](#registration)|regiestration|Yes|
-|GET|[/api/causetime/](#view-cause-and-time)|View cause and time||
-|GET|[/api/causedonation/](#view-cause-and-donation)|View cause and donation||
-|GET|[/api/organizationtime/](#view-organization-and-time)|View organization and time||
-|GET|[/api/organizationdonation/](#view-organization-and-donation)|View organization and donation||
-|||||
-|||||
-|||||
-|||||
+|  Method  |  Endpoint  |  Description |  Deployed  |  URL  |
+| -------- | ---------- | ------------ | ---------- | ----- |
+|GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals filter form newest to oldest| Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
+|POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
+|GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
+|PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
+|DELETE|[/api/Dgoal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
+|GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals filter from newest to oldest|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoals/]|
+|POST|[/api/Vgoals/](#create-a-volunteer-goal)|Create a volunteer goal|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoals/]|
+|PUT|[/api/Vgoal/<int:pk>/](#edit-a-volunteer-goal)|Edit a volunteer goal|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/]|
+|Delete|[/api/Vgoal/<int:pk>/](#delete-a-volunteer-goal)|Delete a volunteer goal|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/]|
+|GET|[/api/Drecords/](#View-all-donation-records)|View all donation records|Yes|[https://charitable-tracker.herokuapp.com/api/Drecords/]|
+|POST|[/api/Drecords/](#Create-a-new-donation-record)|Create a new donation record|Yes|[https://charitable-tracker.herokuapp.com/api/Drecords/]|
+|PUT|[/api/Drecord/<int:pk>/](#Edit-a-specific-donation-record)|Edit a specific donation record|Yes|[https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/]|
+|DELETE|[/api/Drecord/<int:pk>/](#Delete-a-specific-donation-record)|Delete a specific donation record|Yes|[https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/]|
+|GET|[/api/Vrecords/](#view-all-volunteer-goals)|View all volunteer records|Yes|[https://charitable-tracker.herokuapp.com/api/Vrecords/]|
+|POST|[/api/Vrecords/](#add-a-volunteer-record)|Add a volunteer record|Yes|[https://charitable-tracker.herokuapp.com/api/Vrecords/]|
+|GET|[/api/Vrecord/<int:pk>/](#view-a-specific-volunteer-record)|View a specific volunteer record|Yes|[https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>]|
+|PUT|[/api/Vrecord/<int:pk>/](#edit-a-specific-volunteer-record)|Edit a specific volunteer record|Yes|[https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>]|
+|DELETE|[/api/Vrecord/<int:pk>/](#delete-a-specific-volunteer-record)|Delete a specific volunteer record|Yes|[https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/]|
+|GET|[/auth/login](#login)|Login|Yes|[https://charitable-tracker.herokuapp.com/auth/login]|
+|GET|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|[https://charitable-tracker.herokuapp.com/api/annualincome/]|
+|POST|[api/annualincome/](#how-much-each-user-makes)|How much Each user Makes|Yes|[https://charitable-tracker.herokuapp.com/api/annualincome/]|
+|PUT|[api/annualincome/<int:pk>/](#edit-how-much-each-user-makes)|Edit How much Each user Makes|Yes|[https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/]|
+|DELETE|[api/annualincome/<int:pk>/](#delete-how-much-each-user-makes)|Delete How much Each user Makes|Yes|[https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/]|
+|GET|[/api/reminders/](#view-all-reminders)|View All Reminders|No|[https://charitable-tracker.herokuapp.com/api/reminders/]]|
+|POST|[/api/reminders/](#Post-all-reminders)|Add a Reminder|No|[https://charitable-tracker.herokuapp.com/api/reminders/]|
+|PUT|[/api/reminders/<int:pk>/](#edit-a-reminder)|Edit a Reminder|No|[https://charitable-tracker.herokuapp.com/api/reminders/<int:pk>/]|
+|DELETE|[/api/reminders/<int:pk>/](#delete-a-reminder)|Delete a Reminder|NO|[https://charitable-tracker.herokuapp.com/api/reminders/<int:pk>/]|
+|POST|[/auth/registration/](#registration)|regiestration|Yes|[https://charitable-tracker.herokuapp.com/auth/registration/]|
+|GET|[/api/causetime/](#view-cause-and-time)|View cause and time|[https://charitable-tracker.herokuapp.com/api/causetime/]|
+|GET|[/api/causedonation/](#view-cause-and-donation)|View cause and donation|[https://charitable-tracker.herokuapp.com/api/causedonation/]|
+|GET|[/api/organizationtime/](#view-organization-and-time)|View organization and time|Yes|[https://charitable-tracker.herokuapp.com/api/organizationtime/]|
+|GET|[/api/organizationdonation/](#view-organization-and-donation)|View organization and donation|Yes|[https://charitable-tracker.herokuapp.com/api/organizationdonation/]|
+|POST|[/api/upload/](#upload-img)|Upload Img|Yes|[https://charitable-tracker.herokuapp.com/api/upload/]|
+|GET|[/api/upload/](#List-upload-img)|List of all Imgs|[https://charitable-tracker.herokuapp.com/api/upload/]|
+|PUT|[/api/upload/<int:pk>](#edit-upload-img)|Edit a spicific img upload|[https://charitable-tracker.herokuapp.com/api/upload/<int:pk>]|
+|DELETE|[/api/upload/<int:pk>](#delete-upload-img)|Delete a spicific img|[https://charitable-tracker.herokuapp.com/api/upload/<int:pk>]|
 
 
 <!-------------------------- View all donation goals ------------------------------>
@@ -108,7 +106,8 @@ Tracked Goals will then be displayed in interactive Graphs.
 ## View all donation goals
 
 ```
-GET /View all donation goals no filter/
+GET /api/Dgoals/
+https://charitable-tracker.herokuapp.com/api/Dgoals/
 ```
 
 ```json
@@ -142,6 +141,7 @@ This Can be Empty
 
 ```
 POST /api/Dgoals/
+https://charitable-tracker.herokuapp.com/api/Dgoals/
 ```
 
 
@@ -178,7 +178,7 @@ POST /api/Dgoals/
 ## View a singular donation goal
 
 ```
-GET /View a singular donation goal/ 
+GET /api/Dgoals/<int:pk>/ 
 https://charitable-tracker.herokuapp.com/api/Dgoals/<int:pk>/
 ```
 
@@ -210,7 +210,8 @@ This Can be Empty
 ## Edit a singular donation goal
 
 ```
-PUT /Edit a singular donation goal/
+PUT /api/Dgoal/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 ```
 
 ```json
@@ -243,7 +244,8 @@ PUT /Edit a singular donation goal/
 ## Delete a singular donation goal
 
 ```
-DELETE /Delete a singular donation goal/
+DELETE /api/Dgoal/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 ```
 
 ```json
@@ -265,7 +267,8 @@ No body returned for response
 ## View all volunteer goals
 
 ```
-GET /View all volunteer goals no filter/
+GET /api/Vgoals/
+https://charitable-tracker.herokuapp.com/api/Vgoals/
 ```
 
 ```json
@@ -314,7 +317,8 @@ This Can be blank
 ## Create a volunteer goal
 
 ```
-POST /Create a volunteer goal/
+POST /api/Vgoals/
+https://charitable-tracker.herokuapp.com/api/Vgoals/
 ```
 
 ```json
@@ -348,7 +352,8 @@ POST /Create a volunteer goal/
 ## Edit a volunteer goal
 
 ```
-PUT /Edit a volunteer goal/
+PUT /api/Vgoal/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 ```
 
 ```json
@@ -381,7 +386,8 @@ PUT /Edit a volunteer goal/
 ## Delete a volunteer goal
 
 ```
-Delete /Delete a volunteer goal/
+DELETE /api/Vgoal/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 ```
 
 ```json
@@ -403,8 +409,8 @@ No body returned for response
 ## View all volunteer goals
 
 ```
-GET /View all volunteer goals filter from newest to oldest/ 
-api/Vgoals/
+GET /api/Vgoals/
+https://charitable-tracker.herokuapp.com/api/Vgoals/
 ```
 
 ```json
@@ -453,7 +459,8 @@ This Can be blank
 ## View all donation records
 
 ```
-GET /View all donation records/
+GET /api/Drecords/
+https://charitable-tracker.herokuapp.com/api/Drecords/
 ```
 
 ```json
@@ -485,7 +492,8 @@ This Can be Empty
 ## Create a new donation record
 
 ```
-POST /Create a new donation record/
+POST /api/Drecords/
+https://charitable-tracker.herokuapp.com/api/Drecords/
 ```
 
 ```json
@@ -513,36 +521,6 @@ POST /Create a new donation record/
 
 ```
 
-<!-------------------------- View a specific donation record ------------------------------>
-
-
-[Back to Endpoints](#api-endpoints)
-
-## Create a new donation record
-
-```
-GET /Create a new donation record/
-```
-
-```json
-This Can be blank
-```
-
-### response
-
-```json
-{
-	"pk": 8,
-	"amountdonated": 5,
-	"created_at": "2022-04-23",
-	"organization": "Prototype",
-	"donationreceipt": null,
-	"cause": "Environmental",
-	"donationrecord": 1
-}
-
-```
-
 <!-------------------------- Edit a specific donation record ------------------------------>
 
 
@@ -551,7 +529,8 @@ This Can be blank
 ## Edit a specific donation record
 
 ```
-PUT /Edit a specific donation record/
+PUT /api/Drecord/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 ```
 
 ```json
@@ -587,7 +566,8 @@ PUT /Edit a specific donation record/
 ## Delete a specific donation record
 
 ```
-DELETE  /Delete a specific donation record/
+DELETE  /api/Drecord/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 ```
 
 ```json
@@ -601,27 +581,6 @@ This can be blank
 No body returned for response
 ```
 
-<!-------------------------- Delete a specific donation record ------------------------------>
-
-
-[Back to Endpoints](#api-endpoints)
-
-## Delete a specific donation record
-
-```
-DELETE  /Delete a specific donation record/
-```
-
-```json
-This can be blank
-
-```
-
-### response
-
-```json
-No body returned for response
-```
 
 <!-------------------------- View all volunteer records ------------------------------>
 
@@ -632,6 +591,7 @@ No body returned for response
 
 ```
 GET /View all volunteer records/
+https://charitable-tracker.herokuapp.com/api/Vrecords/
 ```
 
 ```json
@@ -665,7 +625,8 @@ This can be blank
 ## Add a volunteer record
 
 ```
-POST  /Add a volunteer record/
+POST  /api/Vrecords/
+https://charitable-tracker.herokuapp.com/api/Vrecords/
 ```
 
 ```json
@@ -704,7 +665,8 @@ POST  /Add a volunteer record/
 ## View a specific volunteer record
 
 ```
-GET  /View a specific volunteer record/
+GET  /api/Vrecord/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 ```
 
 ```json
@@ -735,7 +697,8 @@ This can be blank
 ## Edit a specific volunteer record
 
 ```
-PUT  /Edit a specific volunteer record/
+PUT  /api/Vrecord/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 ```
 
 ```json
@@ -776,7 +739,8 @@ PUT  /Edit a specific volunteer record/
 ## Delete a specific volunteer record
 
 ```
-DELETE  /Delete a specific volunteer record/
+DELETE  /api/Vrecord/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 ```
 
 ```json
@@ -798,6 +762,7 @@ No body returned for response
 
 ```
 POST  /auth/login
+https://charitable-tracker.herokuapp.com/auth/login
 ```
 
 ```json
@@ -829,7 +794,8 @@ POST  /auth/login
 ## List How much Each user Makes
 
 ```
-GET  How much Each user Makes
+GET  /api/annualincome/
+https://charitable-tracker.herokuapp.com/api/annualincome/
 ```
 
 ```json
@@ -851,7 +817,8 @@ Not Sure yet no data in database
 ## Create how much each user makes
 
 ```
-POST  Create how much each user makes
+POST  /api/annualincome/
+https://charitable-tracker.herokuapp.com/api/annualincome/
 ```
 
 ```json
@@ -877,7 +844,8 @@ POST  Create how much each user makes
 ## Edit how much each user makes
 
 ```
-PATCH  Edit how much each user makes
+PATCH  /api/annualincome/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 ```
 
 ```json
@@ -904,7 +872,8 @@ PATCH  Edit how much each user makes
 ## DELETE how much each user makes
 
 ```
-DELETE  DELETE how much each user makes
+DELETE  /api/annualincome/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 ```
 
 ```json
@@ -918,6 +887,36 @@ None
 ```
 
 
+<!-------------------------- List Upload Img ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## List Upload Img
+
+```
+GET /api/upload/
+https://charitable-tracker.herokuapp.com/api/upload/
+```
+
+
+```
+None
+```
+
+### response
+
+```json
+
+{
+	"upload": "https://charitabletracker.s3.amazonaws.com/reciepts/aaaa.jpg"
+}
+
+
+
+```
+
+
 <!-------------------------- Upload Img ------------------------------>
 
 
@@ -926,7 +925,8 @@ None
 ## Upload Img
 
 ```
-POST /Upload Img/
+POST /api/upload/
+https://charitable-tracker.herokuapp.com/api/upload/
 ```
 
 
@@ -947,6 +947,66 @@ Content-Disposition, attachment;filename=
 
 
 ```
+<!-------------------------- Edit Upload Img ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## Edit Upload Img
+
+```
+PATCH /api/upload/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/upload/<int:pk>/
+```
+
+
+```
+Select Img (.jpg), Have the following headers
+Content-Disposition, attachment;filename=
+	file name must match the uploaded img name
+```
+
+### response
+
+```json
+
+{
+	"upload": "https://charitabletracker.s3.amazonaws.com/reciepts/aaaa.jpg"
+}
+
+
+
+```
+<!-------------------------- DELETE Upload Img ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## DELETE Upload Img
+
+```
+POST /api/upload/<int:pk>/
+https://charitable-tracker.herokuapp.com/api/upload/<int:pk>/
+```
+
+
+```
+Select Img (.jpg), Have the following headers
+Content-Disposition, attachment;filename=
+	file name must match the uploaded img name
+```
+
+### response
+
+```json
+
+deleted
+
+
+
+```
+
+
 
 <!-------------------------- View All Reminders ------------------------------>
 
@@ -956,7 +1016,95 @@ Content-Disposition, attachment;filename=
 ## View All Reminders
 
 ```
-GET /View All Reminders/
+GET /api/reminders/
+https://charitable-tracker.herokuapp.com/api/reminders/
+```
+
+```json
+This Can be Empty
+```
+
+### response
+
+```json
+
+{
+	"email": "osamamousa048@gmail.com",
+	"subscribe": true,
+	"interval": "BiWeekly",
+	"your_reminder": "Hey u are awsome"
+}
+
+
+```
+<!-------------------------- POST A Reminder ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## POST A Reminder
+
+```
+POST /api/reminders/
+https://charitable-tracker.herokuapp.com/api/reminders/
+```
+
+```json
+This Can be Empty
+```
+
+### response
+
+```json
+
+{
+	"email": "osamamousa048@gmail.com",
+	"subscribe": true,
+	"interval": "BiWeekly",
+	"your_reminder": "Hey u are awsome"
+}
+
+
+```
+<!-------------------------- Edit All Reminders ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## Edit A Reminder
+
+```
+PATCH /api/reminders/<int:pk>
+https://charitable-tracker.herokuapp.com/api/reminders/api/reminders/<int:pk>
+```
+
+```json
+This Can be Empty
+```
+
+### response
+
+```json
+
+{
+	"email": "osamamousa048@gmail.com",
+	"subscribe": true,
+	"interval": "BiWeekly",
+	"your_reminder": "Hey u are awsome"
+}
+
+
+```
+<!-------------------------- DELETE A Reminder ------------------------------>
+
+
+[Back to Endpoints](#api-endpoints)
+
+## DELETE A Reminder
+
+```
+DELETE /api/reminders/<int:pk>
+https://charitable-tracker.herokuapp.com/api/reminders//api/reminders/<int:pk
 ```
 
 ```json
@@ -985,6 +1133,7 @@ This Can be Empty
 
 ```
 POST  /auth/registration/
+https://charitable-tracker.herokuapp.com/auth/registration/
 ```
 
 ```json
@@ -1015,6 +1164,7 @@ POST  /auth/registration/
 
 ```
 GET  /api/causetime/
+https://charitable-tracker.herokuapp.com/api/causetime/
 ```
 
 ```json
@@ -1027,15 +1177,7 @@ This Can Be blank
 
 ```json
 
-{
-	"hours": 1,
-	"cause": "Women's Rights"
-},
-{
-	"hours": 3,
-	"cause": "Women's Rights"
-}
-]
+needs updated
 
 ```
 
@@ -1047,6 +1189,7 @@ This Can Be blank
 
 ```
 GET  /api/causedonation/
+https://charitable-tracker.herokuapp.com/api/causedonation/
 ```
 
 ```json
@@ -1058,14 +1201,7 @@ This Can Be blank
 ### response
 
 ```json
-{
-	"amountdonated": 1,
-	"cause": "Women's Rights"
-},
-{
-	"amountdonated": 2,
-	"cause": "Women's Rights"
-
+needs updated
 ```
 
 <!-------------------------- View cause and donation ------------------------------>
@@ -1076,6 +1212,7 @@ This Can Be blank
 
 ```
 GET  /api/causedonation/
+https://charitable-tracker.herokuapp.com/api/causedonation/
 ```
 
 ```json
@@ -1087,14 +1224,7 @@ This Can Be blank
 ### response
 
 ```json
-{
-	"amountdonated": 1,
-	"cause": "Women's Rights"
-},
-{
-	"amountdonated": 2,
-	"cause": "Women's Rights"
-
+needs updated
 ```
 
 <!-------------------------- View organization and time ------------------------------>
@@ -1104,7 +1234,8 @@ This Can Be blank
 ## View organization and time
 
 ```
-GET  /api/organizationtime/
+GET api/organizationtime/
+https://charitable-tracker.herokuapp.com/api/organizationtime/
 ```
 
 ```json
@@ -1117,14 +1248,7 @@ This Can Be blank
 
 ```json
 
-{
-	"hours": 1,
-	"organization": "womens rights"
-},
-{
-	"hours": 3,
-	"organization": "womens rights"
-}
+needs updated
 
 
 ```
@@ -1136,7 +1260,8 @@ This Can Be blank
 ## View organization and donation
 
 ```
-GET  /api/organizationdonation/
+GET api/organizationdonation/
+https://charitable-tracker.herokuapp.com/api/organizationdonation/
 ```
 
 ```json
@@ -1149,13 +1274,6 @@ This Can Be blank
 
 ```json
 
-{
-	"amountdonated": 1,
-	"organization": "womens rights"
-},
-{
-	"amountdonated": 2,
-	"organization": "womens rights"
-}
+needs updated
 
 ```

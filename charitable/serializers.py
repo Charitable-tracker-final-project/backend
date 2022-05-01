@@ -92,6 +92,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = (
             "annual_income",
+            "profile_pic",
             )
 
 
@@ -116,16 +117,8 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         )
 
 
-class OrganizationTimeSerializers(serializers.ModelSerializer):
-    
 
-    class Meta:
-        model = Volunteerrecord
-        fields = (
-            "hours",
-            "organization",
-        )
-class OrganizationSerializer(serializers.ModelSerializer):
+class OrganizationDonationSerializer(serializers.ModelSerializer):
     organizationdonationrecord=DonationRecordSerializers(many=True, required=False)
 
     class Meta:
@@ -135,16 +128,18 @@ class OrganizationSerializer(serializers.ModelSerializer):
         "organizationdonationrecord",
         )
 
-class OrganizationDonationSerializers(serializers.ModelSerializer):
-    
+
+class OrganizationTimeSerializer(serializers.ModelSerializer):
+    organizationvolunteerrecord=VolunteerRecordSerializers(many=True, required=False)
 
     class Meta:
-        model = Donationrecord
+        model = Organization
         fields = (
-            "pk",
-            "amountdonated",
-            "organization",
+        "organization",
+        "organizationvolunteerrecord",
         )
+
+
 
 class CauseTimeSerializers(serializers.ModelSerializer):
 
