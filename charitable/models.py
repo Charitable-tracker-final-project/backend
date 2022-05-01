@@ -63,12 +63,11 @@ class Organization(models.Model):
     def __str__(self):
         return self.organization
 
-class Donationrecord(models.Model):
-    amountdonated = models.IntegerField()
-    created_at = models.DateField()
-    organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationdonationrecord" )
-    donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
+
+class Cause(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "cuser", blank=True, null=True)
+    donationgoal = models.ForeignKey(Donationgoal, on_delete=models.CASCADE, related_name = "donationgoalcause", blank=True, null=True)
+    volunteergoal = models.ForeignKey(Volunteergoal, on_delete=models.CASCADE, related_name = "volunteergoalcause", blank=True, null=True)
 
     #causedropdownlist
     ANIMALS = "Animals"
@@ -95,6 +94,17 @@ class Donationrecord(models.Model):
     cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
 
     def __str__(self):
+        return self.cause
+
+class Donationrecord(models.Model):
+    amountdonated = models.IntegerField()
+    created_at = models.DateField()
+    organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationdonationrecord" )
+    donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
+    cause = models.ForeignKey(Cause,on_delete=models.CASCADE, null=True, blank=True, related_name = "causedonationrecord" )
+
+    def __str__(self):
         return f"Donated ${str(self.amountdonated)} to {self.organization}"
 
 class Volunteerrecord(models.Model):
@@ -104,30 +114,7 @@ class Volunteerrecord(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
-
-    #causedropdownlist
-    ANIMALS = "Animals"
-    ARTS_CULTURE_HUMANITIES = "Arts Culture Humanities"
-    ASIAN_RIGHTS = "Asian Rights"
-    BLACK_RIGHTS = "Black Rights"
-    COMMUNITY_DEVELOPMENT = "Community Development"
-    EDUCATION = "Education"
-    ENVIRONMENTAL = "Environmental"
-    HEALTH = "Health"
-    HUMAN_AND_CIVIL_RIGHTS = "Human and Civil Rights"
-    HUMAN_SERVICES = "Human Services"
-    INTERNATIONAL = "International"
-    LATINO_RIGHTS = "Latino Rights"
-    RESEARCH_AND_PUBLIC_POLICY = "Research and Public Policy"
-    RELIGION = "Religion"
-    WOMENS_RIGHTS = "Women's Rights"
-    CAUSE_DROPDOWN_CHOICES =[(ANIMALS, "Animals"),(ARTS_CULTURE_HUMANITIES, "Arts Culture Humanities"),(ASIAN_RIGHTS,"Asian Rights"),
-    (BLACK_RIGHTS, "Black Rights"),(COMMUNITY_DEVELOPMENT,"Community Development"),(EDUCATION, "Education"),(ENVIRONMENTAL, "Environmental"),
-    (HEALTH,"Health"),(HUMAN_AND_CIVIL_RIGHTS, "Human and Civil Rights"),(HUMAN_SERVICES, "Human Services"),
-    (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
-    (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
-
-    cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
+    cause = models.ForeignKey(Cause,on_delete=models.CASCADE, null=True, blank=True, related_name = "causevolunteerrecord" )
 
     def __str__(self):
         return f"Volunteered {str(self.hours)} for {self.organization}"
