@@ -91,6 +91,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
+            "pk",
             "annual_income",
             "profile_pic",
             )
@@ -102,6 +103,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document 
         fields = (
+            "pk",
             "upload",
         )
 
@@ -110,6 +112,7 @@ class EmailReminderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emailreminder
         fields = (
+            "pk",
             "email",
             "subscribe",
             "interval",
