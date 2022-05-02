@@ -29,7 +29,7 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
 
 class DonationRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-
+    
 
     class Meta:
         model = Donationrecord
@@ -60,7 +60,6 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
     drecord = DonationRecordSerializers(many=True, required=False)
     
-        
     class Meta:
         model = Donationgoal
         fields = (
@@ -105,6 +104,8 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = (
             "pk",
             "upload",
+            "dreceipt",
+            "vreceipt", 
         )
 
 class EmailReminderSerializer(serializers.ModelSerializer):

@@ -111,7 +111,7 @@ class Volunteerrecord(models.Model):
     hours = models.IntegerField()
     created_at = models.DateField()
     organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationvolunteerrecord" )
-    description = models.CharField(max_length=1000, blank=True)
+    description = models.CharField(max_length=1000, blank=True, null=True)
     volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
     cause = models.ForeignKey(Cause,on_delete=models.CASCADE, null=True, blank=True, related_name = "causevolunteerrecord" )
