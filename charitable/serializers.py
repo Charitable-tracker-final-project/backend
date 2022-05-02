@@ -91,6 +91,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = (
+            "pk",
             "annual_income",
             "profile_pic",
             )
