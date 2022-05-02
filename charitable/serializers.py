@@ -29,7 +29,9 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
 
 class DonationRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-
+    donationrecord = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+    organization = serializers.SlugRelatedField(slug_field='organization', read_only=True)
+    cause = serializers.SlugRelatedField(slug_field='cause', read_only=True)
 
     class Meta:
         model = Donationrecord
@@ -44,6 +46,9 @@ class DonationRecordSerializers(serializers.ModelSerializer):
 
 class VolunteerRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
+    volunteerrecord = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+    organization = serializers.SlugRelatedField(slug_field='organization', read_only=True)
+    cause = serializers.SlugRelatedField(slug_field='cause', read_only=True)
 
     class Meta:
         model = Volunteerrecord
@@ -59,7 +64,6 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
 
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
     drecord = DonationRecordSerializers(many=True, required=False)
-    
         
     class Meta:
         model = Donationgoal
@@ -68,7 +72,8 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "goaltitle",
             "donationgoal",
             "interval",
-            "drecord"
+            "drecord",
+            "donationrecord",
         )
 
 
@@ -117,6 +122,29 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         )
 
 
+class OrganizationSerializer(serializers.ModelSerializer):
+    donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+
+    class Meta:
+        model = Organization
+        fields = (
+        "organization",
+        "donationgoal",
+        "volunteergoal",
+        )
+
+
+class CauseSerializer(serializers.ModelSerializer):
+    donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+    volunteergoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+
+    class Meta:
+        model = Cause
+        fields = (
+            "cause",
+            "donationgoal",
+            "volunteergoal",
+        )
 
 class OrganizationDonationSerializer(serializers.ModelSerializer):
     organizationdonationrecord=DonationRecordSerializers(many=True, required=False)
