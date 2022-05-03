@@ -81,8 +81,7 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
         )
     
     def get_totaldonated(self, obj):
-        title = {'goaltitle'}
-        return DonationRecord.objects.filter(title).aggregate(sum_donated=Sum('amountdonated'))
+        return DonationRecord.objects.aggregate(sum_donated_cause=Sum('amountdonated'))
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
     vrecord = VolunteerRecordSerializers(many=True, required=False)
