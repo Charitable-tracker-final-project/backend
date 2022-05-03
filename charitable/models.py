@@ -129,7 +129,7 @@ class Document(models.Model):
     dreceipt = models.ForeignKey(Donationrecord, null=True, on_delete=models.CASCADE, related_name='dreceipt')
     vreceipt = models.ForeignKey(Volunteerrecord, null=True, on_delete=models.CASCADE, related_name='vreceipt')
 
-class Emailreminder(models.Model):
+class EmailReminder(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')
     email = models.EmailField()
     subscribe = models.BooleanField(default=True)

@@ -23,7 +23,7 @@ from .models import (
     Volunteergoal,
     Donationgoal,
     Document,
-    Emailreminder
+    EmailReminder
 )
 from .serializers import ( 
     DonationGoalsSerializers,
@@ -55,6 +55,7 @@ from django.urls import reverse_lazy
 from rest_framework.parsers import FileUploadParser
 from django.core.mail import send_mail
 from charitable_tracker import settings
+from .tasks import mail_create
 
 
 
@@ -207,7 +208,7 @@ class EmailReminderView(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         reminder = serializer.instance
-        reminder.mail_create()
+        reminder.mail_create(reminder.pk)
 
 class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
