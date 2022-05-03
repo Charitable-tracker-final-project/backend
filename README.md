@@ -119,14 +119,12 @@ This Can be Empty
 ```json
 
 {
-	"pk": 1,
-	"user": 1,
-	"goaltitle": "Black Empowerment",
-	"donationgoal": 100,
-	"interval": "Year"
+	"pk": 3,
+	"goaltitle": "vol test",
+	"donationgoal": 7,
+	"interval": "Week",
+	"created_at": "2022-04-30"
 }
-
-
 
 ```
 
@@ -160,12 +158,12 @@ https://charitable-tracker.herokuapp.com/api/Dgoals/
 ```json
 
 {
-	"pk": 11,
-	"goaltitle": "hello osama",
+	"pk": 16,
+	"goaltitle": "Wy are u working",
 	"donationgoal": 5,
 	"interval": "Week",
 	"created_at": "2022-04-30"
-},
+}
 
 
 ```
@@ -216,7 +214,7 @@ https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 
 ```json
 {
-	"pk": 1,
+	"pk": 17,
 	"goaltitle": "donation amount test",
 	"donationgoal": 20,
 	"interval": "Week"
@@ -228,10 +226,11 @@ https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 ```json
 
 {
-	"pk": 1,
+	"pk": 17,
 	"goaltitle": "donation amount test",
 	"donationgoal": 20,
-	"interval": "Week"
+	"interval": "Week",
+	"created_at": "2022-04-30"
 }
 
 ```
@@ -280,31 +279,11 @@ This Can be blank
 ```json
 [
 	{
-		"pk": 1,
-		"hours": 5,
-		"created_at": "2022-04-28",
-		"organization": "Bellevue Presbyterian Church",
-		"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
-		"cause": "Religion",
-		"volunteerrecord": 2
-	},
-	{
-		"pk": 3,
-		"hours": 1,
-		"created_at": "2022-04-28",
-		"organization": "Steve's Place",
-		"description": "Worked in the soup kitchen for the men's shelter",
-		"cause": "Community Development",
-		"volunteerrecord": 3
-	},
-	{
-		"pk": 2,
-		"hours": 25,
-		"created_at": "2022-04-28",
-		"organization": "Red Cross of Canada",
-		"description": "Went on trip to help survivors of mudslides in British Columbia",
-		"cause": "Human Services",
-		"volunteerrecord": 3
+		"pk": 24,
+		"goaltitle": "",
+		"volunteergoal": 1,
+		"interval": "",
+		"created_at": "2022-04-28"
 	}
 ]
 ```
@@ -323,10 +302,10 @@ https://charitable-tracker.herokuapp.com/api/Vgoals/
 
 ```json
 {
-	"user": 1,
-	"goaltitle": "Women Empowerment",
-	"volunteergoal": 50,
-	"interval": "Year"
+	"goaltitle": "Hellio",
+	"volunteergoal": 1,
+	"interval": "Week",
+	"created_at": "2022-04-28"
 }
 
 ```
@@ -335,13 +314,12 @@ https://charitable-tracker.herokuapp.com/api/Vgoals/
 
 ```json
 {
-	"pk": 1,
-	"user": 1,
-	"goaltitle": "Women Empowerment",
-	"volunteergoal": 50,
-	"interval": "Year"
+	"pk": 25,
+	"goaltitle": "Hellio",
+	"volunteergoal": 1,
+	"interval": "Week",
+	"created_at": "2022-04-28"
 }
-
 ```
 
 <!-------------------------- Edit a volunteer goal ------------------------------>
@@ -358,10 +336,10 @@ https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 
 ```json
 {
-	"pk": 1,
-	"goaltitle": "first volunteer goal",
-	"volunteergoal": 30,
-	"interval": "Month"
+	"goaltitle": "Hellio AGain",
+	"volunteergoal": 1,
+	"interval": "Week",
+	"created_at": "2022-04-28"
 }
 
 ```
@@ -370,12 +348,12 @@ https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 
 ```json
 {
-	"pk": 1,
-	"goaltitle": "first volunteer goal",
-	"volunteergoal": 30,
-	"interval": "Month"
+	"pk": 25,
+	"goaltitle": "Hellio AGain",
+	"volunteergoal": 1,
+	"interval": "Week",
+	"created_at": "2022-04-28"
 }
-
 ```
 
 <!-------------------------- Delete a volunteer goal ------------------------------>
@@ -422,31 +400,11 @@ This Can be blank
 ```json
 [
 	{
-		"pk": 1,
-		"hours": 5,
-		"created_at": "2022-04-28",
-		"organization": "Bellevue Presbyterian Church",
-		"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
-		"cause": "Religion",
-		"volunteerrecord": 2
-	},
-	{
-		"pk": 3,
-		"hours": 1,
-		"created_at": "2022-04-28",
-		"organization": "Steve's Place",
-		"description": "Worked in the soup kitchen for the men's shelter",
-		"cause": "Community Development",
-		"volunteerrecord": 3
-	},
-	{
-		"pk": 2,
-		"hours": 25,
-		"created_at": "2022-04-28",
-		"organization": "Red Cross of Canada",
-		"description": "Went on trip to help survivors of mudslides in British Columbia",
-		"cause": "Human Services",
-		"volunteerrecord": 3
+		"pk": 24,
+		"goaltitle": "",
+		"volunteergoal": 1,
+		"interval": "",
+		"created_at": "2022-04-28"
 	}
 ]
 ```
@@ -472,15 +430,32 @@ This Can be Empty
 
 ```json
 
-{
-	"pk": 3,
-	"amountdonated": 3,
-	"created_at": "2022-04-27",
-	"organization": "womens rights",
-	"cause": "Women's Rights",
-	"donationrecord": 2
+[
+	{
+		"pk": 11,
+		"amountdonated": 3,
+		"created_at": "2022-04-27",
+		"organization": "Testing Insomnia",
+		"cause": "Women's Rights",
+		"donationrecord": 2
+	},
+	{
+		"pk": 12,
+		"amountdonated": 3,
+		"created_at": "2022-04-27",
+		"organization": "Testing Insomnia",
+		"cause": "Women's Rights",
+		"donationrecord": 2
+	},
+	{
+		"pk": 13,
+		"amountdonated": 3,
+		"created_at": "2022-04-27",
+		"organization": "Testing Insomnia YAY",
+		"cause": "Women's Rights",
+		"donationrecord": 2
 	}
-
+]
 
 ```
 
@@ -500,7 +475,7 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 {
 	"amountdonated": 3,
 	"created_at": "2022-04-27",
-	"organization": "Testing Insomnia",
+	"organization": "Testing Insomnia YAY",
 	"cause": "Women's Rights",
 	"donationrecord": 2
 }
@@ -511,14 +486,13 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 ```json
 
 {
-	"pk": 7,
+	"pk": 13,
 	"amountdonated": 3,
 	"created_at": "2022-04-27",
-	"organization": "Testing Insomnia",
+	"organization": "Testing Insomnia YAY",
 	"cause": "Women's Rights",
 	"donationrecord": 2
 }
-
 ```
 
 <!-------------------------- Edit a specific donation record ------------------------------>
@@ -535,7 +509,7 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 
 ```json
 {
-	"amountdonated": 5,
+	"amountdonated": 6,
 	"created_at": "2022-04-27",
 	"organization": "womens rights",
 	"cause": "Women's Rights",
@@ -548,8 +522,8 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 
 ```json
 {
-	"pk": 3,
-	"amountdonated": 5,
+	"pk": 13,
+	"amountdonated": 6,
 	"created_at": "2022-04-27",
 	"organization": "womens rights",
 	"cause": "Women's Rights",
@@ -603,17 +577,17 @@ This can be blank
 
 ```json
 
-{
-	"pk": 1,
-	"hours": 2,
-	"created_at": "2022-04-22",
-	"organization": "United Way",
-	"description": "I pet dogs",
-	"volunteerreceipt": "http://127.0.0.1:8000/reciepts/logo-shadowclan.png",
-	"cause": "Education",
-	"volunteerrecord": 2
-}
-
+[
+	{
+		"pk": 10,
+		"hours": 3,
+		"created_at": "2022-04-28",
+		"organization": "Testing POST",
+		"description": "Will this Work",
+		"cause": "Religion",
+		"volunteerrecord": 2
+	}
+]
 
 ```
 
@@ -631,10 +605,10 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"hours": 5,
+	"hours": 3,
 	"created_at": "2022-04-28",
-	"organization": "Bellevue Presbyterian Church",
-	"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
+	"organization": "Testing POST",
+	"description": "Will this Work",
 	"cause": "Religion",
 	"volunteerrecord": 2
 }
@@ -645,15 +619,14 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"pk": 5,
-	"hours": 5,
+	"pk": 10,
+	"hours": 3,
 	"created_at": "2022-04-28",
-	"organization": "Bellevue Presbyterian Church",
-	"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
+	"organization": "Testing POST",
+	"description": "Will this Work",
 	"cause": "Religion",
 	"volunteerrecord": 2
 }
-
 
 ```
 
@@ -678,11 +651,11 @@ This can be blank
 
 ```json
 {
-	"pk": 5,
-	"hours": 5,
+	"pk": 10,
+	"hours": 3,
 	"created_at": "2022-04-28",
-	"organization": "Bellevue Presbyterian Church",
-	"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
+	"organization": "Testing POST",
+	"description": "Will this Work",
 	"cause": "Religion",
 	"volunteerrecord": 2
 }
@@ -703,7 +676,6 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"pk": 5,
 	"hours": 5,
 	"created_at": "2022-04-28",
 	"organization": "Test",
@@ -711,7 +683,6 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 	"cause": "Religion",
 	"volunteerrecord": 2
 }
-
 
 ```
 
@@ -719,7 +690,7 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"pk": 5,
+	"pk": 10,
 	"hours": 5,
 	"created_at": "2022-04-28",
 	"organization": "Test",
@@ -727,7 +698,6 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 	"cause": "Religion",
 	"volunteerrecord": 2
 }
-
 
 ```
 
@@ -806,7 +776,14 @@ None
 ### response
 
 ```json
-Not Sure yet no data in database
+[
+	{
+		"annual_income": 40000
+	},
+	{
+		"annual_income": 30000
+	}
+]
 ```
 
 <!-------------------------- Create how much each user makes ------------------------------>
@@ -1201,7 +1178,16 @@ This Can Be blank
 ### response
 
 ```json
-needs updated
+[
+	{
+		"amountdonated": 3,
+		"cause": "Women's Rights"
+	},
+	{
+		"amountdonated": 3,
+		"cause": "Women's Rights"
+	}
+]
 ```
 
 <!-------------------------- View cause and donation ------------------------------>
@@ -1274,6 +1260,15 @@ This Can Be blank
 
 ```json
 
-needs updated
+[
+	{
+		"amountdonated": 3,
+		"organization": "Testing Insomnia"
+	},
+	{
+		"amountdonated": 3,
+		"organization": "Testing Insomnia"
+	}
+]
 
 ```

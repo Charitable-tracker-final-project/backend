@@ -1,3 +1,4 @@
+from ast import And
 from xml.etree.ElementInclude import include
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -42,7 +43,7 @@ from .serializers import (
     OrganizationDonationSerializer,
     OrganizationTimeSerializer,
 )
-from django.db.models import Q
+from django.db.models import Q, Avg, Max, Min, Sum
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
@@ -150,7 +151,18 @@ class DonationGoalBreakdownView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationGoalBreakdownSerializer
 
     def get_queryset(self):
-        filters = Q(user_id=self.request.user)
+        filters = Q(user_id=self.request.user) 
+        return Donationgoal.objects.filter(filters)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class DonationGoalSumBreakdownView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DonationGoalBreakdownSerializer
+
+    def get_queryset(self):
+        filters = Q(user_id=self.request.user) 
         return Donationgoal.objects.filter(filters)
     
     def perform_create(self, serializer):
