@@ -22,7 +22,7 @@ class Profile(models.Model):
     def __str__(self):
         return f"Annual Income {str(self.annual_income)}"
 
-class Donationgoal(models.Model):
+class DonationGoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
     goaltitle = models.CharField(max_length=100, blank=True)
     donationgoal = models.IntegerField()
@@ -38,7 +38,7 @@ class Donationgoal(models.Model):
     def __str__(self):
         return self.goaltitle
 
-class Volunteergoal(models.Model):
+class VolunteerGoal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "volunteer")
     goaltitle = models.CharField(max_length=100, blank=True)
     volunteergoal = models.IntegerField()
@@ -57,8 +57,8 @@ class Volunteergoal(models.Model):
 class Organization(models.Model):
     organization = models.CharField(max_length=200, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "ouser", blank=True, null=True)
-    donationgoal = models.ForeignKey(Donationgoal, on_delete=models.CASCADE, related_name = "donationgoalorg", blank=True, null=True)
-    volunteergoal = models.ForeignKey(Volunteergoal, on_delete=models.CASCADE, related_name = "volunteergoalorg", blank=True, null=True)
+    donationgoal = models.ForeignKey(DonationGoal, on_delete=models.CASCADE, related_name = "donationgoalorg", blank=True, null=True)
+    volunteergoal = models.ForeignKey(VolunteerGoal, on_delete=models.CASCADE, related_name = "volunteergoalorg", blank=True, null=True)
 
     def __str__(self):
         return self.organization
@@ -66,8 +66,8 @@ class Organization(models.Model):
 
 class Cause(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "cuser", blank=True, null=True)
-    donationgoal = models.ForeignKey(Donationgoal, on_delete=models.CASCADE, related_name = "donationgoalcause", blank=True, null=True)
-    volunteergoal = models.ForeignKey(Volunteergoal, on_delete=models.CASCADE, related_name = "volunteergoalcause", blank=True, null=True)
+    donationgoal = models.ForeignKey(DonationGoal, on_delete=models.CASCADE, related_name = "donationgoalcause", blank=True, null=True)
+    volunteergoal = models.ForeignKey(VolunteerGoal, on_delete=models.CASCADE, related_name = "volunteergoalcause", blank=True, null=True)
 
     #causedropdownlist
     ANIMALS = "Animals"
@@ -96,23 +96,23 @@ class Cause(models.Model):
     def __str__(self):
         return self.cause
 
-class Donationrecord(models.Model):
+class DonationRecord(models.Model):
     amountdonated = models.IntegerField()
     created_at = models.DateField()
     organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationdonationrecord" )
-    donationrecord = models.ForeignKey(Donationgoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
+    goal = models.ForeignKey(DonationGoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "drecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
     cause = models.ForeignKey(Cause,on_delete=models.CASCADE, null=True, blank=True, related_name = "causedonationrecord" )
 
     def __str__(self):
         return f"Donated ${str(self.amountdonated)} to {self.organization}"
 
-class Volunteerrecord(models.Model):
+class VolunteerRecord(models.Model):
     hours = models.IntegerField()
     created_at = models.DateField()
     organization = models.ForeignKey(Organization,on_delete=models.CASCADE, null=True, blank=True, related_name = "organizationvolunteerrecord" )
     description = models.CharField(max_length=1000, blank=True, null=True)
-    volunteerrecord = models.ForeignKey(Volunteergoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
+    goal = models.ForeignKey(VolunteerGoal,on_delete=models.CASCADE, null=True, blank=True, related_name = "vrecord" )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "vuser", blank=True, null=True)
     cause = models.ForeignKey(Cause,on_delete=models.CASCADE, null=True, blank=True, related_name = "causevolunteerrecord" )
 
@@ -123,10 +123,10 @@ class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField(upload_to="reciepts")
-    dreceipt = models.ForeignKey(Donationrecord, null=True, on_delete=models.CASCADE, related_name='dreceipt')
-    vreceipt = models.ForeignKey(Volunteerrecord, null=True, on_delete=models.CASCADE, related_name='vreceipt')
+    dreceipt = models.ForeignKey(DonationRecord, null=True, on_delete=models.CASCADE, related_name='dreceipt')
+    vreceipt = models.ForeignKey(VolunteerRecord, null=True, on_delete=models.CASCADE, related_name='vreceipt')
 
-class Emailreminder(models.Model):
+class EmailReminder(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')
     email = models.EmailField()
     subscribe = models.BooleanField(default=True)

@@ -1,4 +1,4 @@
-from .models import Emailreminder, Organization, Cause, Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document, Emailreminder
+from .models import EmailReminder, Organization, Cause, Profile, User, DonationRecord, VolunteerRecord, VolunteerGoal, DonationGoal, Document, EmailReminder
 from rest_framework import serializers
 from django.db.models import Q, Avg, Max, Min, Sum
 
@@ -6,7 +6,7 @@ class DonationGoalsSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
 
     class Meta:
-        model = Donationgoal
+        model = DonationGoal
         fields = (
             "pk",
             "goaltitle",
@@ -19,7 +19,7 @@ class VolunteerGoalsSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
 
     class Meta:
-        model = Volunteergoal
+        model = VolunteerGoal
         fields = (
             "pk",
             "goaltitle",
@@ -36,7 +36,7 @@ class DonationRecordSerializers(serializers.ModelSerializer):
     
 
     class Meta:
-        model = Donationrecord
+        model = DonationRecord
         fields = (
             "pk",
             "amountdonated",
@@ -46,7 +46,6 @@ class DonationRecordSerializers(serializers.ModelSerializer):
             "donationrecord",
         )
 
-
 class VolunteerRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
     volunteerrecord = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
@@ -54,7 +53,7 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
     cause = serializers.SlugRelatedField(slug_field='cause', read_only=True)
 
     class Meta:
-        model = Volunteerrecord
+        model = VolunteerRecord
         fields = (
             "pk",
             "hours",
@@ -71,7 +70,7 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = Donationgoal
+        model = DonationGoal
         fields = (
             "pk",
             "goaltitle",
@@ -80,16 +79,16 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "drecord",
             "totaldonated",
         )
-
+    
     def get_totaldonated(self, obj):
-        return Donationrecord.objects.aggregate(sum_donated=Sum('amountdonated'))
+        return DonationRecord.objects.aggregate(sum_donated_cause=Sum('amountdonated'))
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
     vrecord = VolunteerRecordSerializers(many=True, required=False)
     
         
     class Meta:
-        model = Volunteergoal
+        model = VolunteerGoal
         fields = (
             "pk",
             "goaltitle",
@@ -124,7 +123,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 class EmailReminderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Emailreminder
+        model = EmailReminder
         fields = (
             "pk",
             "email",
