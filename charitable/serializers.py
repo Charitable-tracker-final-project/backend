@@ -69,6 +69,7 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
     drecord = DonationRecordSerializers(many=True, required=False)
     totaldonated = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Donationgoal
         fields = (
@@ -114,7 +115,10 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document 
         fields = (
+            "pk",
             "upload",
+            "dreceipt",
+            "vreceipt", 
         )
 
 class EmailReminderSerializer(serializers.ModelSerializer):
@@ -122,6 +126,7 @@ class EmailReminderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emailreminder
         fields = (
+            "pk",
             "email",
             "subscribe",
             "interval",
