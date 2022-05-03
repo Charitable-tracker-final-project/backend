@@ -1,4 +1,4 @@
-from .models import EmailReminder, Organization, Cause, Profile, User, DonationRecord, VolunteerRecord, VolunteerGoal, DonationGoal, Document, Emailreminder
+from .models import EmailReminder, Organization, Cause, Profile, User, DonationRecord, VolunteerRecord, VolunteerGoal, DonationGoal, Document, EmailReminder
 from rest_framework import serializers
 from django.db.models import Q, Avg, Max, Min, Sum
 
@@ -79,9 +79,10 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "drecord",
             "totaldonated",
         )
-
+    
     def get_totaldonated(self, obj):
-        return DonationRecord.objects.filter("goaltitle").aggregate(sum_donated=Sum('amountdonated'))
+        title = {'goaltitle'}
+        return DonationRecord.objects.filter(title).aggregate(sum_donated=Sum('amountdonated'))
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
     vrecord = VolunteerRecordSerializers(many=True, required=False)
