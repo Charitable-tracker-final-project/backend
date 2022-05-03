@@ -33,6 +33,7 @@ urlpatterns = [
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
     path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
     path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
+    path("api/DSumbreakdown/<int:pk>/", cviews.DonationGoalSumBreakdownView.as_view()),
     path("api/Vbreakdown/<int:pk>/", cviews.VolunteerGoalBreakdownView.as_view()),
     path("api/organizationdonation/", cviews.OrganizationDonationview.as_view()),
     path("api/organizationtime/", cviews.OrganizationTime.as_view()),
