@@ -1,4 +1,4 @@
-from .models import Emailreminder, Organization, Cause, Profile, User, DonationRecord, VolunteerRecord, VolunteerGoal, DonationGoal, Document, Emailreminder
+from .models import EmailReminder, Organization, Cause, Profile, User, DonationRecord, VolunteerRecord, VolunteerGoal, DonationGoal, Document, Emailreminder
 from rest_framework import serializers
 from django.db.models import Q, Avg, Max, Min, Sum
 
@@ -123,7 +123,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 class EmailReminderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Emailreminder
+        model = EmailReminder
         fields = (
             "pk",
             "email",

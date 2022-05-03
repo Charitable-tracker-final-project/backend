@@ -26,7 +26,7 @@ from .models import (
     VolunteerGoal,
     DonationGoal,
     Document,
-    Emailreminder
+    EmailReminder
 )
 from .serializers import ( 
     DonationGoalsSerializers,
@@ -227,7 +227,7 @@ class EmailReminderView(ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Emailreminder.objects.filter(filters)
+        return EmailReminder.objects.filter(filters)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -239,7 +239,7 @@ class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Emailreminder.objects.filter(filters)
+        return EmailReminder.objects.filter(filters)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
