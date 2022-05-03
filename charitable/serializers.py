@@ -1,5 +1,6 @@
 from .models import Emailreminder, Organization, Cause, Profile, User, Donationrecord, Volunteerrecord, Volunteergoal, Donationgoal, Document, Emailreminder
 from rest_framework import serializers
+from django.db.models import Q, Avg, Max, Min, Sum
 
 class DonationGoalsSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
@@ -32,6 +33,7 @@ class DonationRecordSerializers(serializers.ModelSerializer):
     donationrecord = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
     organization = serializers.SlugRelatedField(slug_field='organization', read_only=True)
     cause = serializers.SlugRelatedField(slug_field='cause', read_only=True)
+    
 
     class Meta:
         model = Donationrecord
@@ -41,8 +43,9 @@ class DonationRecordSerializers(serializers.ModelSerializer):
             "created_at",
             "organization",
             "cause",
-            "donationrecord"
+            "donationrecord",
         )
+
 
 class VolunteerRecordSerializers(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
@@ -64,7 +67,8 @@ class VolunteerRecordSerializers(serializers.ModelSerializer):
 
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
     drecord = DonationRecordSerializers(many=True, required=False)
-        
+    totaldonated = serializers.SerializerMethodField()
+
     class Meta:
         model = Donationgoal
         fields = (
@@ -73,9 +77,11 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "donationgoal",
             "interval",
             "drecord",
-            "donationrecord",
+            "totaldonated",
         )
 
+    def get_totaldonated(self, obj):
+        return Donationrecord.objects.aggregate(sum_donated=Sum('amountdonated'))
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
     vrecord = VolunteerRecordSerializers(many=True, required=False)
