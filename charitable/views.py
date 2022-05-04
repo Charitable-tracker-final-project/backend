@@ -1,8 +1,9 @@
-from ast import And
-from xml.etree.ElementInclude import include
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from rest_framework import (
     generics,
     permissions, 
@@ -101,15 +102,34 @@ class VolunteerGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
+
+
 class DonationRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializer
+    # queryset = Record.objects.all()
 
+    # @action(detail=False, methods=["GET"])
+    # def get_queryset(self, request):
+    #     '''
+    #     Using this to create a seperate, custom 
+    #     enpoint for only a Users records
+    #     GET  /api/Drecords/
+    #     '''
+    #     record = self.get_queryset().filter(user_id=self.request.user)
+    #     serializer = self.get_serializer(record, many=True)
+    #     return Response(serializer.data)
     def get_queryset(self):
         filters = Q(user=self.request.user)
         return Record.objects.filter(filters)
-    
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        goal = self.request.user.donor.first()
+        serializer.save(user=self.request.user, goal=goal)
+
+
+
+
 
 class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationRecordSerializer
@@ -135,7 +155,7 @@ class VolunteerRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Record.objects.all()
     serializer_class = VolunteerRecordSerializer
 
-
+    
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
         return Record.objects.filter(filters)

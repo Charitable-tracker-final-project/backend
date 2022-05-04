@@ -41,11 +41,17 @@ class Goal(models.Model):
     INTERVAL_DROPDOWN_CHOICES = [(WEEK,"Week"),(MONTH, "Month"), (YEAR, "Year")]
     interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
 
-    def __str__(self):
-        return self.vgoaltitle
+    # def __str__(self):
+    #     return self.vgoaltitle
 
     def __str__(self):
         return self.dgoaltitle
+
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(
+    #             fields=["habit_record", "update_date"], name="one_record_per_day")
+    #     ]
 
 
 class Record(models.Model):

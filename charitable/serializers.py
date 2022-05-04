@@ -48,7 +48,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
+    # goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
     
 
     class Meta:
@@ -79,12 +79,14 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "totaldonated",
         )
 
-    def get_totaldonated(self, request):
-        return Record.objects.aggregate(sum_donated=Sum('amountdonated'))
+    def get_totaldonated(self, goal):
+        # total = Record.objects.aggregate(sum_donated=Sum('amountdonated'))
+        return goal.record.aggregate(sum_donated=Sum('amountdonated'))
+        
 
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
-    vrecord = VolunteerRecordSerializer(many=True, required=False)
+    record = VolunteerRecordSerializer(many=True, required=False)
     timedonated = serializers.SerializerMethodField()
         
     class Meta:
