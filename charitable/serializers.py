@@ -48,7 +48,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    # goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
+    #goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
     
 
     class Meta:
