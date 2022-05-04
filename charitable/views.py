@@ -127,10 +127,6 @@ class DonationRecordListView(generics.ListCreateAPIView):
         goal = self.request.user.donor.first()
         serializer.save(user=self.request.user, goal=goal)
 
-
-
-
-
 class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationRecordSerializer
 
@@ -302,8 +298,9 @@ class CauseDonation(generics.ListAPIView):
     serializer_class = CauseDonationSerializer
 
     def get_queryset(self):
-        filters = Q(user=self.request.user) 
-        return Record.objects.filter(filters)
+        search_term = self.request.query_params.get("cause")
+        filters = Q(user=self.request.user)
+        return Record.objects.filter(filters, cause__icontains = search_term).aggregate(sum_donated=Sum('amountdonated'))
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -197,11 +197,16 @@ class CauseTimeSerializer(serializers.ModelSerializer):
         )
 
 class CauseDonationSerializer(serializers.ModelSerializer):
-    causedonationrecord=DonationRecordSerializer(many=True, required=False)
+    #totaldonated = serializers.SerializerMethodField() 
+    sum_donated = serializers.IntegerField()
 
     class Meta:
         model = Record
         fields = (
+            "pk",
             "cause",
-            "causedonationrecord",
+            "amountdonated",
+            "sum_donated"
         )
+    def get_totaldonated(self, cause):
+        return Record.objects.filter().annotate(sum_donated=Sum('amountdonated'))
