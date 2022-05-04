@@ -48,7 +48,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    # goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
+    goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
     
 
     class Meta:
@@ -100,8 +100,8 @@ class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
             "timedonated",
         )
 
-    def get_timedonated(self, request):
-        return Record.objects.aggregate(sum_hours=Sum('hoursdonated'))
+    def get_timedonated(self, goal):
+        return goal.record.aggregate(sum_donated=Sum('hoursdonated'))
 
 class ProfileSerializer(serializers.ModelSerializer):
 
@@ -164,25 +164,35 @@ class CauseSerializer(serializers.ModelSerializer):
         )
 
 class OrganizationDonationSerializer(serializers.ModelSerializer):
-    organizationdonationrecord=DonationRecordSerializer(many=True, required=False)
+    totaldonated = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
         fields = (
-        "organization",
-        "organizationdonationrecord",
+            "pk",
+            "organization",
+            "amountdonated",
+            "totaldonated",
         )
+    def get_totaldonated(self, instance):
+        return Record.objects.filter(user=self.context["request"].user, organization=instance.organization).aggregate(sum_donated=Sum('amountdonated'))
 
 
 class OrganizationTimeSerializer(serializers.ModelSerializer):
-    organizationvolunteerrecord=VolunteerRecordSerializer(many=True, required=False)
+    totaldonated = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Record
         fields = (
-        "organization",
-        "organizationvolunteerrecord",
+            "pk",
+            "organization",
+            "hoursdonated",
+            "totaldonated",
         )
+
+    def get_totaldonated(self, instance):
+        return Record.objects.filter(user=self.context["request"].user, organization=instance.organization).aggregate(sum_donated=Sum('hoursdonated'))
 
 
 

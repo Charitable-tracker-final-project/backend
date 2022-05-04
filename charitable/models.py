@@ -44,8 +44,8 @@ class Goal(models.Model):
     # def __str__(self):
     #     return self.vgoaltitle
 
-    def __str__(self):
-        return self.dgoaltitle
+    # def __str__(self):
+    #     return self.dgoaltitle
 
     # class Meta:
     #     constraints = [
