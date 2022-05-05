@@ -308,8 +308,9 @@ class CauseDonation(generics.ListAPIView):
 
     def get_queryset(self):
         search_term = self.request.query_params.get("cause")
-        filters = Q(user=self.request.user)
-        return Record.objects.filter(filters, cause__icontains = search_term).aggregate(sum_donated=Sum('amountdonated'))
+        return Record.objects.filter(
+            cause__icontains=search_term, user=self.request.user
+        )
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
