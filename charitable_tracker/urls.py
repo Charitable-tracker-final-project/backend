@@ -49,4 +49,5 @@ urlpatterns = [
     path('api/reminder/<int:pk>/', cviews.EmailReminderDetailView.as_view()),
     path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login'),
     path('api-auth/', include('rest_framework.urls')),
+    path('api/record-list/', cviews.AllRecords.as_view())
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

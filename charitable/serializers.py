@@ -48,11 +48,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-<<<<<<< HEAD
-    goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
-=======
     #goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
->>>>>>> e8e71c8405004244e71bedc4413ea58f132825f0
     
 
     class Meta:
@@ -224,3 +220,19 @@ class CauseDonationSerializer(serializers.ModelSerializer):
         )
     def get_totaldonated(self, cause):
         return Record.objects.filter().annotate(sum_donated=Sum('amountdonated'))
+
+
+class AllRecords(serializers.ModelSerializer):
+
+    class Meta:
+        model = Record
+        fields= (
+            "user",
+            "goal",
+            "amountdonated",
+            "created_at",
+            "hoursdonated",
+            "description",
+            "cause",
+            "organization"
+        )
