@@ -208,5 +208,7 @@ class CauseDonationSerializer(serializers.ModelSerializer):
             "amountdonated",
             "sum_donated"
         )
-    def get_totaldonated(self, cause):
-        return Record.objects.filter().annotate(sum_donated=Sum('amountdonated'))
+    def get_totaldonated(self, instance):
+        return Record.objects.filter(
+            user=self.context["request"].user, cause=instance.cause
+        ).aggregate(Sum("amountdonated"))
