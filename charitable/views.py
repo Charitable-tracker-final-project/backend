@@ -107,24 +107,13 @@ class VolunteerGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class DonationRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializer
-    # queryset = Record.objects.all()
 
-    # @action(detail=False, methods=["GET"])
-    # def get_queryset(self, request):
-    #     '''
-    #     Using this to create a seperate, custom 
-    #     enpoint for only a Users records
-    #     GET  /api/Drecords/
-    #     '''
-    #     record = self.get_queryset().filter(user_id=self.request.user)
-    #     serializer = self.get_serializer(record, many=True)
-    #     return Response(serializer.data)
     def get_queryset(self):
         filters = Q(user=self.request.user)
         return Record.objects.filter(filters)
 
     def perform_create(self, serializer):
-        goal = self.request.user.donor.last()
+        goal = self.request.user.donor.exclude(dgoaltitle=None)
         serializer.save(user=self.request.user, goal=goal)
 
 class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -145,7 +134,7 @@ class VolunteerRecordListView(generics.ListCreateAPIView):
         return Record.objects.filter(filters)
     
     def perform_create(self, serializer):
-        goal = self.request.user.donor.first()
+        goal = self.request.user.donor.exclude(vgoaltitle=None)
         serializer.save(user=self.request.user, goal=goal)
 
 
@@ -269,8 +258,8 @@ class OrganizationTime(generics.ListAPIView):
     serializer_class = OrganizationTimeSerializer
 
     def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Record.objects.filter(filters)
+        search_term = self.request.query_params.get("organization")
+        return Record.objects.filter(user=self.request.user, organization__iexact = search_term)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -291,8 +280,8 @@ class CauseTime(generics.ListAPIView):
     serializer_class = CauseTimeSerializer
 
     def get_queryset(self):
-        filters = Q(user=self.request.user)
-        return Record.objects.filter(filters)
+        search_term = self.request.query_params.get("cause")
+        return Record.objects.filter(user=self.request.user, organization__iexact = search_term)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -303,8 +292,7 @@ class CauseDonation(generics.ListAPIView):
 
     def get_queryset(self):
         search_term = self.request.query_params.get("cause")
-        filters = Q(user=self.request.user)
-        return Record.objects.filter(filters, cause__icontains = search_term).aggregate(sum_donated=Sum('amountdonated'))
+        return Record.objects.filter(user=self.request.user, organization__iexact = search_term)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
