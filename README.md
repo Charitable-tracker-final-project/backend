@@ -54,7 +54,6 @@ Tracked Goals will then be displayed in interactive Graphs.
 | -------- | ---------- | ------------ | ---------- | ----- |
 |GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals filter form newest to oldest| Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
 |POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
-|GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |DELETE|[/api/Dgoal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals filter from newest to oldest|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoals/]|
@@ -164,37 +163,6 @@ https://charitable-tracker.herokuapp.com/api/Dgoals/
 	"dollars": 78,
 	"interval": "Week",
 	"created_at": "2022-04-01"
-}
-
-
-```
-
-<!-------------------------- View a singular donation goal ------------------------------>
-
-
-[Back to Endpoints](#api-endpoints)
-
-## View a singular donation goal
-
-```
-GET /api/Dgoals/<int:pk>/ 
-https://charitable-tracker.herokuapp.com/api/Dgoals/<int:pk>/
-```
-
-```json
-This Can be Empty
-```
-
-### response
-
-```json
-
-{
-	"pk": 1,
-	"dgoaltitle": "Osama",
-	"dollars": 78,
-	"interval": "Week",
-	"created_at": "2022-05-04"
 }
 
 
