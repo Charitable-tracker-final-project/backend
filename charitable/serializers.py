@@ -266,6 +266,21 @@ class CauseDonationSerializer(serializers.ModelSerializer):
     #     )
     #     return months
 
+class AllRecords(serializers.ModelSerializer):
+
+    class Meta:
+        model = Record
+        fields= (
+            "user",
+            "goal",
+            "amountdonated",
+            "created_at",
+            "hoursdonated",
+            "description",
+            "cause",
+            "organization"
+        )
+
 
 
 

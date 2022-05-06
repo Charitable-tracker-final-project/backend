@@ -330,11 +330,6 @@ class AllRecords(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class Donobymonth(generics.ListCreateAPIView):
-    queryset = Record.objects.all()
-    serializer_class = DonationRecordSerializer
-    last_month = datetime.today() - timedelta(days=30)
-    items = Record.objects.filter(created_at=last_month).order_by('created_at')
 
 
 
