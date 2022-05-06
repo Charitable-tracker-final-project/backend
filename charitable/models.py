@@ -58,6 +58,7 @@ class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
     goal = models.ForeignKey(Goal,on_delete=models.CASCADE, null=True, blank=True, related_name="record")
 
+    imgreciept = models.TextField(blank=True, null=True)
     # Donation Record Fields
 
     amountdonated = models.IntegerField(null=True)
@@ -93,6 +94,10 @@ class Record(models.Model):
     cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
 
     organization = models.CharField(max_length=200, blank=True)
+
+
+#imgupload
+
 
     # def __str__(self):
     #     return self.organization
