@@ -16,6 +16,7 @@ class VolunteerGoalSerializer(serializers.ModelSerializer):
             "hours",
             "interval",
             'created_at',
+            
         )
 
 class DonationGoalSerializer(serializers.ModelSerializer):
@@ -49,6 +50,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
             "cause",
             "goal",
             "alldonated",
+            "imgreciept",
         )
 
     def get_alldonated(self, goal):
@@ -68,7 +70,8 @@ class VolunteerRecordSerializer(serializers.ModelSerializer):
             "organization",
             "description",
             "cause",
-            "goal"
+            "goal",
+            "imgreciept",
         )
 
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):

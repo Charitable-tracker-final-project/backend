@@ -4,6 +4,8 @@ from django.core.paginator import Paginator
 from rest_framework.decorators import action
 from rest_framework.response import Response
 import calendar
+from rest_framework.pagination import PageNumberPagination
+from datetime import datetime, timedelta
 
 from rest_framework import (
     generics,
@@ -40,6 +42,7 @@ from .serializers import (
     CauseDonationSerializer,
     OrganizationDonationSerializer,
     OrganizationTimeSerializer,
+    AllRecords,
 )
 from django.db.models import Q, Avg, Max, Min, Sum, Case, When, Value, CharField
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -57,7 +60,10 @@ from rest_framework.parsers import FileUploadParser
 from django.core.mail import send_mail
 from charitable_tracker import settings
 
-
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 10
 
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Goal.objects.all()
@@ -312,7 +318,23 @@ class CauseDonation(generics.ListAPIView):
         serializer.save(user=self.request.user)
 
 
+class AllRecords(generics.ListCreateAPIView):
+    queryset = Record.objects.all()
+    serializer_class = AllRecords
+    pagination_class = StandardResultsSetPagination
 
+    def get_queryset(self):
+        filters = Q(user=self.request.user)
+        return Record.objects.filter(filters).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class Donobymonth(generics.ListCreateAPIView):
+    queryset = Record.objects.all()
+    serializer_class = DonationRecordSerializer
+    last_month = datetime.today() - timedelta(days=30)
+    items = Record.objects.filter(created_at=last_month).order_by('created_at')
 
 
 
