@@ -1,6 +1,8 @@
-from .models import EmailReminder, Profile, Record, User, Goal, Document, EmailReminder
+from .models import Cause, Org, EmailReminder, Profile, Record, User, Goal, Document, EmailReminder
 from rest_framework import serializers
-from django.db.models import Q, Avg, Max, Min, Sum, F
+from django.db.models import Q, Avg, Max, Min, Sum, Case, When, Value, CharField, F
+import calendar
+from django.db.models.functions import ExtractMonth
 
 
 class VolunteerGoalSerializer(serializers.ModelSerializer):
@@ -12,8 +14,8 @@ class VolunteerGoalSerializer(serializers.ModelSerializer):
             "pk",
             "vgoaltitle",
             "hours",
-            "interval",
             'created_at',
+            
         )
 
 class DonationGoalSerializer(serializers.ModelSerializer):
@@ -25,15 +27,16 @@ class DonationGoalSerializer(serializers.ModelSerializer):
             "pk",
             "dgoaltitle",
             "dollars",
-            "interval",
             'created_at',
         )
+
+    
 
         
 class DonationRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    goal = serializers.SlugRelatedField(slug_field='dgoaltitle', read_only=True )
-    
+    # goal = serializers.SlugRelatedField(slug_field='dgoaltitle', read_only=True )
+    alldonated = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
@@ -43,12 +46,16 @@ class DonationRecordSerializer(serializers.ModelSerializer):
             "created_at",
             "organization",
             "cause",
-            "goal",
+            "alldonated",
+            "imgreciept",
         )
+
+    def get_alldonated(self, goal):
+        return Record.objects.aggregate(alldonated=Sum('amountdonated'))
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
+    # goal = serializers.SlugRelatedField(slug_field='vgoaltitle', read_only=True)
     
 
     class Meta:
@@ -60,7 +67,7 @@ class VolunteerRecordSerializer(serializers.ModelSerializer):
             "organization",
             "description",
             "cause",
-            "goal"
+            "imgreciept",
         )
 
 class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
@@ -74,17 +81,21 @@ class DonationGoalBreakdownSerializer(serializers.ModelSerializer):
             "pk",
             "dgoaltitle",
             "dollars",
-            "interval",
+
             "record",
             "totaldonated",
         )
 
-    def get_totaldonated(self, request):
-        return Record.objects.aggregate(sum_donated=Sum('amountdonated'))
+    def get_totaldonated(self, goal):
+        # breakpoint()
+        # dollars = Goal.objects.first('dollars')
+        sum = goal.record.aggregate(totaldonos=Sum('amountdonated'))
+        return sum
+        
 
 
 class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
-    vrecord = VolunteerRecordSerializer(many=True, required=False)
+    record = VolunteerRecordSerializer(many=True, required=False)
     timedonated = serializers.SerializerMethodField()
         
     class Meta:
@@ -98,8 +109,8 @@ class VolunteerGoalBreakdownSerializer(serializers.ModelSerializer):
             "timedonated",
         )
 
-    def get_timedonated(self, request):
-        return Record.objects.aggregate(sum_hours=Sum('hoursdonated'))
+    def get_timedonated(self, goal):
+        return goal.record.aggregate(sum_donated=Sum('hoursdonated'))
 
 class ProfileSerializer(serializers.ModelSerializer):
 
@@ -137,69 +148,139 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         )
 
 
-class OrganizationSerializer(serializers.ModelSerializer):
-    donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+# class OrganizationSerializer(serializers.ModelSerializer):
+#     donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+
+#     class Meta:
+#         model = Goal
+#         fields = (
+#         "organization",
+#         "donationgoal",
+#         "volunteergoal",
+#         )
+
+
+# class CauseSerializer(serializers.ModelSerializer):
+#     cause = serializers.SlugRelatedField(slug_field='title', read_only=True)
+#     volunteergoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+
+#     class Meta:
+#         model = Record
+#         fields = (
+#             "cause",
+#             "donationgoal",
+#             "volunteergoal",
+#         )
+
+    
+
+# class OrganizationDonationSerializer(serializers.ModelSerializer):
+#     totaldonated = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = Record
+#         fields = (
+#             "pk",
+#             "organization",
+#             "amountdonated",
+#             "totaldonated",
+#         )
+#     def get_totaldonated(self, instance):
+#         return Record.objects.filter(user=self.context["request"].user, organization=instance.organization).aggregate(totaldonos=Sum('amountdonated'))
+
+
+class OrgTimeSerializer(serializers.ModelSerializer):
+
 
     class Meta:
-        model = Goal
+        model = Org
         fields = (
-        "organization",
-        "donationgoal",
-        "volunteergoal",
-        )
-
-
-class CauseSerializer(serializers.ModelSerializer):
-    donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
-    volunteergoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
-
-    class Meta:
-        model = Record
-        fields = (
-            "cause",
-            "donationgoal",
-            "volunteergoal",
-        )
-
-class OrganizationDonationSerializer(serializers.ModelSerializer):
-    organizationdonationrecord=DonationRecordSerializer(many=True, required=False)
-
-    class Meta:
-        model = Record
-        fields = (
-        "organization",
-        "organizationdonationrecord",
-        )
-
-
-class OrganizationTimeSerializer(serializers.ModelSerializer):
-    organizationvolunteerrecord=VolunteerRecordSerializer(many=True, required=False)
-
-    class Meta:
-        model = Record
-        fields = (
-        "organization",
-        "organizationvolunteerrecord",
+            "organization",
+            "total_by_org_time",
+            "all_hours",
         )
 
 
 
 class CauseTimeSerializer(serializers.ModelSerializer):
-    causevolunteerrecord=VolunteerRecordSerializer(many=True, required=False)
+    # timedonated = serializers.SerializerMethodField()
 
     class Meta:
-        model = Record
+        model = Cause
         fields = (
             "cause",
-            "causevolunteerrecord",
+            "total_by_cause_time",
+            "all_hours",
         )
+    
+    # def get_timedonated(self, instance):
+    #     return Record.objects.filter(user=self.context["request"].user, cause=instance.cause).aggregate(totaldonos_org=Sum('hoursdonated'))
+
 
 class CauseDonationSerializer(serializers.ModelSerializer):
-    causedonationrecord=DonationRecordSerializer(many=True, required=False)
+
+
+    class Meta:
+        model = Cause
+        fields = (
+            "cause",
+            "total_by_cause_donated",
+            "all_donated",
+        )
+
+
+    # def get_months(self, instance):
+    #     conditions = []
+    #     for i in range(1, 13):
+    #         month_name = calendar.month_name[i]
+    #         conditions.append(When(created_at__month=i, then=Value(month_name)))
+
+    #     return Record.objects.filter(user=self.context["request"].user, amountdonated=instance.amountdonated).annotate(month_name=Case(*conditions, default=Value(""), output_field=CharField())
+    #     ).order_by("month_name").values_list("month_name", flat=True).distinct()
+
+class OrgDonationSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Org
+        fields = (
+            "organization",
+            "total_by_org_donated",
+            "all_donated",
+        )
+
+class AllRecords(serializers.ModelSerializer):
 
     class Meta:
         model = Record
-        fields = (
+        fields= (
+            "user",
+            "goal",
+            "amountdonated",
+            "created_at",
+            "hoursdonated",
+            "description",
             "cause",
-            "causedonationrecord",
+            "organization"
         )
+
+# class DonationCauseDonationRecordSerializer(serializers.ModelSerializer):
+#     cause = CauseDonationSerializer(many=True, required=False)
+#     all_donated = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = CauseDonation
+#         fields = (
+#             "all_donated",
+#             "cause"
+#         )
+
+#     def all_donated(self):
+#         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
+    
+
+
+
+
+
+

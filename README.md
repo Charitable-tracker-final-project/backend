@@ -11,41 +11,33 @@ Tracked Goals will then be displayed in interactive Graphs.
     - Fields
         - User: FK
         - annual_income: intField
-- **Donation Goal**
+		- profile_pic:URLField
+- **Goal**
     - Fields
-        - User: FK
-        - goaltitle: CharField
-        - donationGoal: IntField
-        - interval: CharField (Drop Down)
-- **Volunteer Goal**
-    - Fields
-        - user: FK
-        - goaltitle: CharField
-        - volunteergoal: IntField
-        - interval: CharField (Drop Down)
-- **Donation Record**
-    - Fields
-        - amountdonated: IntField
-        - created at: DateField
-        - organization: CharField
-        - donation receipt: ImgeField
-        - donation record: FK
-        - user: FK
-        - cause: CharField (Drop Down)
-- **Volunteer Record**
+        - Created_At: DateField
+		- User: FK
+		- dgoaltitle: CharField
+		- dollars: IntFeld
+		- vgoaltitle: CharField
+		- hours: IntField
+		- interval: CharField (Drop Down)
+- **Record**
 	- Fields
-    	- hours: IntField
-    	- created_at: DateField
-	    - organization: CharField
-    	- description: CharField
-	    - volunteerreceipt: ImgField
-    	- volunteerrecord: FK
-    	- cause: CharField
+		- User: FK
+		- goal: FK
+		- amountdonated: IntField
+		- created_at: DateField
+		- hoursdonated: IntField
+		- description: CharField
+		- cause: charField (Drop Down)
+		- organization = CharField
 - **Document**
 	- Fields
 		- User: FK
 		- uploaded_at: DateTimeField
 		- upload: ImgField
+		- drecipt: FK
+		- vreceipt: FK
 - **EmailReminder**
 	- Fields
 		- user: FK
@@ -62,7 +54,6 @@ Tracked Goals will then be displayed in interactive Graphs.
 | -------- | ---------- | ------------ | ---------- | ----- |
 |GET|[/api/Dgoals/](#view-all-donation-goals)|View All Donation Goals filter form newest to oldest| Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
 |POST|[/api/Dgoals/](#add-a-donation-goal)|Add a donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoals/]|
-|GET|[/api/Dgoal/<int:pk>/](#view-a-singular-donation-goal)|View a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |PUT|[/api/Dgoal/<int:pk>/](#edit-a-singular-donation-goal)|Edit a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |DELETE|[/api/Dgoal/<int:pk>/](#delete-a-singular-donation-goal)|Delete a singular donation goal|Yes|[https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/]|
 |GET|[/api/Vgoals/](#view-all-volunteer-goals)|View all volunteer goals filter from newest to oldest|Yes|[https://charitable-tracker.herokuapp.com/api/Vgoals/]|
@@ -118,13 +109,22 @@ This Can be Empty
 
 ```json
 
-{
-	"pk": 3,
-	"goaltitle": "vol test",
-	"donationgoal": 7,
-	"interval": "Week",
-	"created_at": "2022-04-30"
-}
+[
+	{
+		"pk": 1,
+		"dgoaltitle": "Osama",
+		"dollars": 78,
+		"interval": "Week",
+		"created_at": "2022-05-04"
+	},
+	{
+		"pk": 2,
+		"dgoaltitle": "Osama",
+		"dollars": 78,
+		"interval": "Week",
+		"created_at": "2022-04-01"
+	}
+]
 
 ```
 
@@ -145,10 +145,10 @@ https://charitable-tracker.herokuapp.com/api/Dgoals/
 
 ```json
 {
-"goaltitle": "Wy are u working",
-"donationgoal": 5,
-"interval": "Week",
-"created_at": "2022-04-30"
+	"dgoaltitle":"Osama",
+	"dollars":78,
+	"interval":"Week",
+	"created_at":"2022-04-1"
 }
 
 ```
@@ -158,44 +158,12 @@ https://charitable-tracker.herokuapp.com/api/Dgoals/
 ```json
 
 {
-	"pk": 16,
-	"goaltitle": "Wy are u working",
-	"donationgoal": 5,
+	"pk": 2,
+	"dgoaltitle": "Osama",
+	"dollars": 78,
 	"interval": "Week",
-	"created_at": "2022-04-30"
+	"created_at": "2022-04-01"
 }
-
-
-```
-
-<!-------------------------- View a singular donation goal ------------------------------>
-
-
-[Back to Endpoints](#api-endpoints)
-
-## View a singular donation goal
-
-```
-GET /api/Dgoals/<int:pk>/ 
-https://charitable-tracker.herokuapp.com/api/Dgoals/<int:pk>/
-```
-
-```json
-This Can be Empty
-```
-
-### response
-
-```json
-
-{
-	"pk": 1,
-	"user": 1,
-	"goaltitle": "Black Empowerment",
-	"donationgoal": 100,
-	"interval": "Year"
-}
-
 
 
 ```
@@ -214,23 +182,22 @@ https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 
 ```json
 {
-	"pk": 17,
-	"goaltitle": "donation amount test",
-	"donationgoal": 20,
-	"interval": "Week"
+	"dgoaltitle": "Osama",
+	"dollars": 58,
+	"interval": "Week",
+	"created_at": "2022-05-04"
 }
 ```
 
 ### response
 
 ```json
-
 {
-	"pk": 17,
-	"goaltitle": "donation amount test",
-	"donationgoal": 20,
+	"pk": 1,
+	"dgoaltitle": "Osama",
+	"dollars": 58,
 	"interval": "Week",
-	"created_at": "2022-04-30"
+	"created_at": "2022-05-04"
 }
 
 ```
@@ -279,13 +246,14 @@ This Can be blank
 ```json
 [
 	{
-		"pk": 24,
-		"goaltitle": "",
-		"volunteergoal": 1,
-		"interval": "",
-		"created_at": "2022-04-28"
+		"pk": 1,
+		"vgoaltitle": "",
+		"hours": null,
+		"interval": "Week",
+		"created_at": "2022-05-04"
 	}
 ]
+
 ```
 
 <!-------------------------- Create a volunteer goal ------------------------------>
@@ -301,12 +269,13 @@ https://charitable-tracker.herokuapp.com/api/Vgoals/
 ```
 
 ```json
-{
-	"goaltitle": "Hellio",
-	"volunteergoal": 1,
-	"interval": "Week",
-	"created_at": "2022-04-28"
-}
+	{
+		"vgoaltitle": "Self Care!",
+		"hours": 5,
+		"interval": "Week",
+		"created_at": "2022-05-04"
+	}
+
 
 ```
 
@@ -314,11 +283,11 @@ https://charitable-tracker.herokuapp.com/api/Vgoals/
 
 ```json
 {
-	"pk": 25,
-	"goaltitle": "Hellio",
-	"volunteergoal": 1,
+	"pk": 3,
+	"vgoaltitle": "Self Care!",
+	"hours": 5,
 	"interval": "Week",
-	"created_at": "2022-04-28"
+	"created_at": "2022-05-04"
 }
 ```
 
@@ -336,10 +305,10 @@ https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 
 ```json
 {
-	"goaltitle": "Hellio AGain",
-	"volunteergoal": 1,
+	"vgoaltitle": "Self Care!",
+	"hours": 8,
 	"interval": "Week",
-	"created_at": "2022-04-28"
+	"created_at": "2022-05-04"
 }
 
 ```
@@ -348,11 +317,11 @@ https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 
 ```json
 {
-	"pk": 25,
-	"goaltitle": "Hellio AGain",
-	"volunteergoal": 1,
+	"pk": 3,
+	"vgoaltitle": "Self Care!",
+	"hours": 8,
 	"interval": "Week",
-	"created_at": "2022-04-28"
+	"created_at": "2022-05-04"
 }
 ```
 
@@ -379,36 +348,6 @@ This Can be Empty
 No body returned for response
 ```
 
-<!-------------------------- View all volunteer goals ------------------------------>
-
-
-[Back to Endpoints](#api-endpoints)
-
-## View all volunteer goals
-
-```
-GET /api/Vgoals/
-https://charitable-tracker.herokuapp.com/api/Vgoals/
-```
-
-```json
-This Can be blank
-```
-
-### response
-
-```json
-[
-	{
-		"pk": 24,
-		"goaltitle": "",
-		"volunteergoal": 1,
-		"interval": "",
-		"created_at": "2022-04-28"
-	}
-]
-```
-
 <!-------------------------- View all donation records ------------------------------>
 
 
@@ -432,28 +371,12 @@ This Can be Empty
 
 [
 	{
-		"pk": 11,
-		"amountdonated": 3,
+		"pk": 1,
+		"amountdonated": 4,
 		"created_at": "2022-04-27",
-		"organization": "Testing Insomnia",
-		"cause": "Women's Rights",
-		"donationrecord": 2
-	},
-	{
-		"pk": 12,
-		"amountdonated": 3,
-		"created_at": "2022-04-27",
-		"organization": "Testing Insomnia",
-		"cause": "Women's Rights",
-		"donationrecord": 2
-	},
-	{
-		"pk": 13,
-		"amountdonated": 3,
-		"created_at": "2022-04-27",
-		"organization": "Testing Insomnia YAY",
-		"cause": "Women's Rights",
-		"donationrecord": 2
+		"organization": "MSA",
+		"cause": "Religion",
+		"goal": "Osama"
 	}
 ]
 
@@ -473,11 +396,10 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 
 ```json
 {
-	"amountdonated": 3,
+	"amountdonated": 4,
 	"created_at": "2022-04-27",
-	"organization": "Testing Insomnia YAY",
-	"cause": "Women's Rights",
-	"donationrecord": 2
+	"organization": "MSA",
+	"cause": "Religion"
 }
 ```
 
@@ -486,13 +408,14 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 ```json
 
 {
-	"pk": 13,
-	"amountdonated": 3,
+	"pk": 1,
+	"amountdonated": 4,
 	"created_at": "2022-04-27",
-	"organization": "Testing Insomnia YAY",
-	"cause": "Women's Rights",
-	"donationrecord": 2
+	"organization": "MSA",
+	"cause": "Religion",
+	"goal": "Osama"
 }
+
 ```
 
 <!-------------------------- Edit a specific donation record ------------------------------>
@@ -509,11 +432,11 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 
 ```json
 {
-	"amountdonated": 6,
+	"amountdonated": 999,
 	"created_at": "2022-04-27",
-	"organization": "womens rights",
-	"cause": "Women's Rights",
-	"donationrecord": 2
+	"organization": "MSA",
+	"cause": "Religion",
+	"goal": "Osama"
 }
 
 ```
@@ -522,12 +445,12 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 
 ```json
 {
-	"pk": 13,
-	"amountdonated": 6,
+	"pk": 2,
+	"amountdonated": 999,
 	"created_at": "2022-04-27",
-	"organization": "womens rights",
-	"cause": "Women's Rights",
-	"donationrecord": 2
+	"organization": "MSA",
+	"cause": "Religion",
+	"goal": "Osama"
 }
 
 ```
@@ -577,17 +500,15 @@ This can be blank
 
 ```json
 
-[
-	{
-		"pk": 10,
-		"hours": 3,
-		"created_at": "2022-04-28",
-		"organization": "Testing POST",
-		"description": "Will this Work",
-		"cause": "Religion",
-		"volunteerrecord": 2
-	}
-]
+{
+	"pk": 3,
+	"hoursdonated": 3,
+	"created_at": "2022-04-28",
+	"organization": "2",
+	"description": "Will this Work",
+	"cause": "Animals",
+	"goal": null
+},
 
 ```
 
@@ -605,12 +526,12 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"hours": 3,
+	"hoursdonated": 3,
 	"created_at": "2022-04-28",
-	"organization": "Testing POST",
+	"organization": "2",
 	"description": "Will this Work",
-	"cause": "Religion",
-	"volunteerrecord": 2
+	"cause": "Animals",
+	"goal": 3
 }
 
 ```
@@ -619,13 +540,13 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"pk": 10,
-	"hours": 3,
+	"pk": 4,
+	"hoursdonated": 3,
 	"created_at": "2022-04-28",
-	"organization": "Testing POST",
+	"organization": "2",
 	"description": "Will this Work",
-	"cause": "Religion",
-	"volunteerrecord": 2
+	"cause": "Animals",
+	"goal": 3
 }
 
 ```
@@ -651,13 +572,13 @@ This can be blank
 
 ```json
 {
-	"pk": 10,
-	"hours": 3,
+	"pk": 3,
+	"hoursdonated": 3,
 	"created_at": "2022-04-28",
-	"organization": "Testing POST",
+	"organization": "2",
 	"description": "Will this Work",
-	"cause": "Religion",
-	"volunteerrecord": 2
+	"cause": "Animals",
+	"goal": null
 }
 
 ```
@@ -676,12 +597,12 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"hours": 5,
+	"hoursdonated": 3,
 	"created_at": "2022-04-28",
-	"organization": "Test",
-	"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
-	"cause": "Religion",
-	"volunteerrecord": 2
+	"organization": "2",
+	"description": "Will this Work",
+	"cause": "Animals",
+	"goal": 3
 }
 
 ```
@@ -690,13 +611,13 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"pk": 10,
-	"hours": 5,
+	"pk": 3,
+	"hoursdonated": 3,
 	"created_at": "2022-04-28",
-	"organization": "Test",
-	"description": "-Sang for 20 minutes, practiced for 50, sang again, etc",
-	"cause": "Religion",
-	"volunteerrecord": 2
+	"organization": "2",
+	"description": "Will this Work",
+	"cause": "Animals",
+	"goal": 3
 }
 
 ```
@@ -776,14 +697,11 @@ None
 ### response
 
 ```json
-[
-	{
-		"annual_income": 40000
-	},
-	{
-		"annual_income": 30000
-	}
-]
+{
+	"pk": 1,
+	"annual_income": 87000,
+	"profile_pic": ""
+}
 ```
 
 <!-------------------------- Create how much each user makes ------------------------------>
@@ -800,7 +718,7 @@ https://charitable-tracker.herokuapp.com/api/annualincome/
 
 ```json
 {
-	"annual_income": 40000
+	"annual_income": 87000
 }
 
 ```
@@ -809,7 +727,9 @@ https://charitable-tracker.herokuapp.com/api/annualincome/
 
 ```json
 {
-	"annual_income": 40000
+	"pk": 1,
+	"annual_income": 87000,
+	"profile_pic": ""
 }
 ```
 
@@ -827,7 +747,7 @@ https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 
 ```json
 {
-	"annual_income": 30000
+	"annual_income": 69
 }
 
 ```
@@ -836,7 +756,9 @@ https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 
 ```json
 {
-	"annual_income": 30000
+	"pk": 1,
+	"annual_income": 69,
+	"profile_pic": ""
 }
 ```
 
