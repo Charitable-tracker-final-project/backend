@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from django.core.paginator import Paginator
 from rest_framework.decorators import action
 from rest_framework.response import Response
+import calendar
 
 from rest_framework import (
     generics,
@@ -40,7 +41,7 @@ from .serializers import (
     OrganizationDonationSerializer,
     OrganizationTimeSerializer,
 )
-from django.db.models import Q, Avg, Max, Min, Sum
+from django.db.models import Q, Avg, Max, Min, Sum, Case, When, Value, CharField
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
@@ -86,7 +87,7 @@ class VolunteerGoalListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
-        return Goal.objects.filter(filters).order_by('-created_at')
+        return Goal.objects.filter(filters).order_by('created_at')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -113,8 +114,10 @@ class DonationRecordListView(generics.ListCreateAPIView):
         return Record.objects.filter(filters)
 
     def perform_create(self, serializer):
-        goal = self.request.user.donor.exclude(dgoaltitle=None)
+        goal = self.request.user.donor.first()
         serializer.save(user=self.request.user, goal=goal)
+
+
 
 class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DonationRecordSerializer
@@ -134,7 +137,7 @@ class VolunteerRecordListView(generics.ListCreateAPIView):
         return Record.objects.filter(filters)
     
     def perform_create(self, serializer):
-        goal = self.request.user.donor.exclude(vgoaltitle=None)
+        goal = self.request.user.donor.first()
         serializer.save(user=self.request.user, goal=goal)
 
 
@@ -281,7 +284,7 @@ class CauseTime(generics.ListAPIView):
 
     def get_queryset(self):
         search_term = self.request.query_params.get("cause")
-        return Record.objects.filter(user=self.request.user, organization__iexact = search_term)
+        return Record.objects.filter(cause__iexact = search_term, user=self.request.user)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -291,11 +294,25 @@ class CauseDonation(generics.ListAPIView):
     serializer_class = CauseDonationSerializer
 
     def get_queryset(self):
-        search_term = self.request.query_params.get("cause")
-        return Record.objects.filter(user=self.request.user, organization__iexact = search_term)
+        # search_term = self.request.query_params.get("cause")
+        # return Record.objects.filter(user=self.request.user, cause__iexact = search_term)
+        # amountdonated = self.request.user.donor.exclude(amountdonated=None)
+
+        # conditions = []
+        # for i in range(1, 13):
+        #     month_name = calendar.month_name[i]
+        #     conditions.append(When(created_at__month=i, then=Value(month_name)))
+
+        # return Record.objects.annotate(month_name=Case(*conditions, default=Value(""), output_field=CharField())
+        # ).order_by("month_name").values_list("month_name", flat=True).distinct().filter(user=self.request.user).exclude(amountdonated=None)
+
+        return Record.objects.filter(user=self.request.user).exclude(amountdonated=None)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+
 
 
 

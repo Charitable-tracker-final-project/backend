@@ -60,12 +60,12 @@ class Record(models.Model):
 
     # Donation Record Fields
 
-    amountdonated = models.IntegerField(null=True)
+    amountdonated = models.IntegerField(null=True, blank=True)
     created_at = models.DateField()
 
     # Volunteer Record Fields
 
-    hoursdonated = models.IntegerField(null=True)
+    hoursdonated = models.IntegerField(null=True, blank=True)
     description = models.CharField(max_length=1000, blank=True, null=True)
 
     #causedropdownlist
