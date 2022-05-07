@@ -135,8 +135,8 @@ class DocumentSerializer(serializers.ModelSerializer):
             "vreceipt", 
         )
 
-class EmailReminderSerializer(serializers.ModelSerializer):
-
+class EmailReminderSerializer(serializers.ModelSerializer):    
+    
     class Meta:
         model = EmailReminder
         fields = (
@@ -144,7 +144,8 @@ class EmailReminderSerializer(serializers.ModelSerializer):
             "email",
             "subscribe",
             "interval",
-            "your_reminder"
+            "message",
+            
         )
 
 
