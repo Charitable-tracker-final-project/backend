@@ -87,6 +87,13 @@ Tracked Goals will then be displayed in interactive Graphs.
 |GET|[/api/upload/](#List-upload-img)|List of all Imgs|[https://charitable-tracker.herokuapp.com/api/upload/]|
 |PUT|[/api/upload/<int:pk>](#edit-upload-img)|Edit a spicific img upload|[https://charitable-tracker.herokuapp.com/api/upload/<int:pk>]|
 |DELETE|[/api/upload/<int:pk>](#delete-upload-img)|Delete a spicific img|[https://charitable-tracker.herokuapp.com/api/upload/<int:pk>]|
+|GET|[/api/Vbreakdown/<int:pk>/]|Volunteer Breakdown|[https://charitable-tracker.herokuapp.com/api/Vbreakdown/<int:pk>/]|
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
 
 
 <!-------------------------- View all donation goals ------------------------------>
@@ -111,18 +118,16 @@ This Can be Empty
 
 [
 	{
-		"pk": 1,
-		"dgoaltitle": "Osama",
-		"dollars": 78,
-		"interval": "Week",
-		"created_at": "2022-05-04"
+		"pk": 14,
+		"dgoaltitle": "I Love You All",
+		"dollars": 23,
+		"created_at": "2022-04-30"
 	},
 	{
-		"pk": 2,
-		"dgoaltitle": "Osama",
-		"dollars": 78,
-		"interval": "Week",
-		"created_at": "2022-04-01"
+		"pk": 15,
+		"dgoaltitle": "I Love You All Again!!",
+		"dollars": 23,
+		"created_at": "2022-04-30"
 	}
 ]
 
@@ -145,26 +150,21 @@ https://charitable-tracker.herokuapp.com/api/Dgoals/
 
 ```json
 {
-	"dgoaltitle":"Osama",
-	"dollars":78,
-	"interval":"Week",
-	"created_at":"2022-04-1"
+	"dgoaltitle": "I Love You All again!!",
+	"dollars": 23,
+	"created_at": "2022-04-30"
 }
-
 ```
 
 ### response
 
 ```json
-
 {
-	"pk": 2,
-	"dgoaltitle": "Osama",
-	"dollars": 78,
-	"interval": "Week",
-	"created_at": "2022-04-01"
+	"pk": 15,
+	"dgoaltitle": "I Love You All again!!",
+	"dollars": 23,
+	"created_at": "2022-04-30"
 }
-
 
 ```
 
@@ -182,10 +182,9 @@ https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 
 ```json
 {
-	"dgoaltitle": "Osama",
-	"dollars": 58,
-	"interval": "Week",
-	"created_at": "2022-05-04"
+	"dgoaltitle": "I Love You All Again!!",
+	"dollars": 23,
+	"created_at": "2022-04-30"
 }
 ```
 
@@ -193,11 +192,10 @@ https://charitable-tracker.herokuapp.com/api/Dgoal/<int:pk>/
 
 ```json
 {
-	"pk": 1,
-	"dgoaltitle": "Osama",
-	"dollars": 58,
-	"interval": "Week",
-	"created_at": "2022-05-04"
+	"pk": 15,
+	"dgoaltitle": "I Love You All Again!!",
+	"dollars": 23,
+	"created_at": "2022-04-30"
 }
 
 ```
@@ -244,15 +242,11 @@ This Can be blank
 ### response
 
 ```json
-[
-	{
-		"pk": 1,
-		"vgoaltitle": "",
-		"hours": null,
-		"interval": "Week",
-		"created_at": "2022-05-04"
-	}
-]
+{
+	"vgoaltitle": "Hello Plz Work",
+	"hours": 23,
+	"created_at": "2022-04-28"
+}
 
 ```
 
@@ -269,13 +263,11 @@ https://charitable-tracker.herokuapp.com/api/Vgoals/
 ```
 
 ```json
-	{
-		"vgoaltitle": "Self Care!",
-		"hours": 5,
-		"interval": "Week",
-		"created_at": "2022-05-04"
-	}
-
+{
+	"vgoaltitle": "Self Love",
+	"hours": 23,
+	"created_at": "2022-04-28"
+}
 
 ```
 
@@ -305,23 +297,20 @@ https://charitable-tracker.herokuapp.com/api/Vgoal/<int:pk>/
 
 ```json
 {
-	"vgoaltitle": "Self Care!",
-	"hours": 8,
-	"interval": "Week",
-	"created_at": "2022-05-04"
+	"vgoaltitle": "Self Love",
+	"hours": 22,
+	"created_at": "2022-04-28"
 }
-
 ```
 
 ### response
 
 ```json
 {
-	"pk": 3,
-	"vgoaltitle": "Self Care!",
-	"hours": 8,
-	"interval": "Week",
-	"created_at": "2022-05-04"
+	"pk": 12,
+	"vgoaltitle": "Self Love",
+	"hours": 22,
+	"created_at": "2022-04-28"
 }
 ```
 
@@ -348,7 +337,7 @@ This Can be Empty
 No body returned for response
 ```
 
-<!-------------------------- View all donation records ------------------------------>
+<!-------------------------- View all Volunteer donation records ------------------------------>
 
 
 [Back to Endpoints](#api-endpoints)
@@ -371,15 +360,39 @@ This Can be Empty
 
 [
 	{
-		"pk": 1,
-		"amountdonated": 4,
+		"pk": 2,
+		"amountdonated": 3,
 		"created_at": "2022-04-27",
-		"organization": "MSA",
+		"organization": "Osama",
 		"cause": "Religion",
-		"goal": "Osama"
+		"alldonated": {
+			"alldonated": 86
+		},
+		"imgreciept": null
+	},
+	{
+		"pk": 3,
+		"amountdonated": 6,
+		"created_at": "2022-04-27",
+		"organization": "Osama",
+		"cause": "Religion",
+		"alldonated": {
+			"alldonated": 86
+		},
+		"imgreciept": null
+	},
+	{
+		"pk": 4,
+		"amountdonated": 77,
+		"created_at": "2022-04-27",
+		"organization": "Osama",
+		"cause": "Religion",
+		"alldonated": {
+			"alldonated": 86
+		},
+		"imgreciept": null
 	}
 ]
-
 ```
 
 <!-------------------------- Create a new donation record ------------------------------>
@@ -396,10 +409,12 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 
 ```json
 {
-	"amountdonated": 4,
+	"pk": 23,
+	"amountdonated": 3,
 	"created_at": "2022-04-27",
-	"organization": "MSA",
-	"cause": "Religion"
+	"organization": "Osama",
+	"cause": "Religion",
+	"donationrecord": "I Love You All"
 }
 ```
 
@@ -408,14 +423,16 @@ https://charitable-tracker.herokuapp.com/api/Drecords/
 ```json
 
 {
-	"pk": 1,
-	"amountdonated": 4,
+	"pk": 2,
+	"amountdonated": 3,
 	"created_at": "2022-04-27",
-	"organization": "MSA",
+	"organization": "Osama",
 	"cause": "Religion",
-	"goal": "Osama"
+	"alldonated": {
+		"alldonated": 3
+	},
+	"imgreciept": null
 }
-
 ```
 
 <!-------------------------- Edit a specific donation record ------------------------------>
@@ -432,13 +449,15 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 
 ```json
 {
-	"amountdonated": 999,
+	"amountdonated": 33,
 	"created_at": "2022-04-27",
-	"organization": "MSA",
+	"organization": "Osama",
 	"cause": "Religion",
-	"goal": "Osama"
+	"alldonated": {
+		"alldonated": 3
+	},
+	"imgreciept": null
 }
-
 ```
 
 ### response
@@ -446,13 +465,15 @@ https://charitable-tracker.herokuapp.com/api/Drecord/<int:pk>/
 ```json
 {
 	"pk": 2,
-	"amountdonated": 999,
+	"amountdonated": 33,
 	"created_at": "2022-04-27",
-	"organization": "MSA",
+	"organization": "Osama",
 	"cause": "Religion",
-	"goal": "Osama"
+	"alldonated": {
+		"alldonated": 116
+	},
+	"imgreciept": null
 }
-
 ```
 
 <!-------------------------- Delete a specific donation record ------------------------------>
@@ -499,16 +520,53 @@ This can be blank
 ### response
 
 ```json
-
-{
-	"pk": 3,
-	"hoursdonated": 3,
-	"created_at": "2022-04-28",
-	"organization": "2",
-	"description": "Will this Work",
-	"cause": "Animals",
-	"goal": null
-},
+[
+	{
+		"pk": 3,
+		"hoursdonated": null,
+		"created_at": "2022-04-27",
+		"organization": "Osama",
+		"description": null,
+		"cause": "Religion",
+		"imgreciept": null
+	},
+	{
+		"pk": 4,
+		"hoursdonated": null,
+		"created_at": "2022-04-27",
+		"organization": "Osama",
+		"description": null,
+		"cause": "Religion",
+		"imgreciept": null
+	},
+	{
+		"pk": 6,
+		"hoursdonated": 33,
+		"created_at": "2022-04-28",
+		"organization": "Osama",
+		"description": "Will this Work",
+		"cause": "Animals",
+		"imgreciept": null
+	},
+	{
+		"pk": 7,
+		"hoursdonated": 73,
+		"created_at": "2022-04-28",
+		"organization": "Osama",
+		"description": "Will this Work",
+		"cause": "Animals",
+		"imgreciept": null
+	},
+	{
+		"pk": 8,
+		"hoursdonated": 723,
+		"created_at": "2022-04-28",
+		"organization": "Osama",
+		"description": "Will this Work",
+		"cause": "Animals",
+		"imgreciept": null
+	}
+]
 
 ```
 
@@ -526,12 +584,13 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"hoursdonated": 3,
+	"pk": 1,
+	"hoursdonated": 73,
 	"created_at": "2022-04-28",
-	"organization": "2",
+	"organization": "Osama",
 	"description": "Will this Work",
 	"cause": "Animals",
-	"goal": 3
+	"imgreciept": null
 }
 
 ```
@@ -540,15 +599,14 @@ https://charitable-tracker.herokuapp.com/api/Vrecords/
 
 ```json
 {
-	"pk": 4,
-	"hoursdonated": 3,
+	"pk": 7,
+	"hoursdonated": 73,
 	"created_at": "2022-04-28",
-	"organization": "2",
+	"organization": "Osama",
 	"description": "Will this Work",
 	"cause": "Animals",
-	"goal": 3
+	"imgreciept": null
 }
-
 ```
 
 <!-------------------------- View a specific volunteer record ------------------------------>
@@ -572,13 +630,13 @@ This can be blank
 
 ```json
 {
-	"pk": 3,
-	"hoursdonated": 3,
+	"pk": 8,
+	"hoursdonated": 723,
 	"created_at": "2022-04-28",
-	"organization": "2",
+	"organization": "Osama",
 	"description": "Will this Work",
 	"cause": "Animals",
-	"goal": null
+	"imgreciept": null
 }
 
 ```
@@ -597,12 +655,12 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"hoursdonated": 3,
+	"hoursdonated": 23,
 	"created_at": "2022-04-28",
-	"organization": "2",
+	"organization": "Osama",
 	"description": "Will this Work",
 	"cause": "Animals",
-	"goal": 3
+	"imgreciept": null
 }
 
 ```
@@ -611,13 +669,13 @@ https://charitable-tracker.herokuapp.com/api/Vrecord/<int:pk>/
 
 ```json
 {
-	"pk": 3,
-	"hoursdonated": 3,
+	"pk": 8,
+	"hoursdonated": 23,
 	"created_at": "2022-04-28",
-	"organization": "2",
+	"organization": "Osama",
 	"description": "Will this Work",
 	"cause": "Animals",
-	"goal": 3
+	"imgreciept": null
 }
 
 ```
@@ -697,11 +755,13 @@ None
 ### response
 
 ```json
-{
-	"pk": 1,
-	"annual_income": 87000,
-	"profile_pic": ""
-}
+[
+	{
+		"pk": 2,
+		"annual_income": 87000,
+		"profile_pic": ""
+	}
+]
 ```
 
 <!-------------------------- Create how much each user makes ------------------------------>
@@ -718,19 +778,20 @@ https://charitable-tracker.herokuapp.com/api/annualincome/
 
 ```json
 {
-	"annual_income": 87000
+		"annual_income": 4
 }
-
 ```
 
 ### response
 
 ```json
-{
-	"pk": 1,
-	"annual_income": 87000,
-	"profile_pic": ""
-}
+[
+	{
+		"pk": 2,
+		"annual_income": 87000,
+		"profile_pic": ""
+	}
+]
 ```
 
 <!-------------------------- Edit how much each user makes ------------------------------>
@@ -747,7 +808,7 @@ https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 
 ```json
 {
-	"annual_income": 69
+	"annual_income": 30000
 }
 
 ```
@@ -756,8 +817,8 @@ https://charitable-tracker.herokuapp.com/api/annualincome/<int:pk>/
 
 ```json
 {
-	"pk": 1,
-	"annual_income": 69,
+	"pk": 2,
+	"annual_income": 30000,
 	"profile_pic": ""
 }
 ```
