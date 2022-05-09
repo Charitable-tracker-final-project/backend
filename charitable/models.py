@@ -129,22 +129,6 @@ class EmailReminder(models.Model):
     def __str__(self):
         return self.message
 
-def mail_create(reminder_pk):
-    reminder = EmailReminder.objects.get(pk=reminder_pk)
-    send_mail(
-                subject=('Friendly Reminder from Charitable Tracker'),
-                message=(f'Hi {reminder.user}. {reminder.message}.'),
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[reminder.email]
-                )
-    if reminder.interval == 'Weekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_week='sun')
-    elif reminder.interval == 'BiWeekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_month='1,15')
-    elif reminder.interval == 'Monthly' and reminder.subscribe == True:    
-            crontab(0,0, day_of_month='1')
-    elif reminder.interval == 'Yearly' and reminder.subscribe == True:
-            crontab(0,0, month_of_year='5')
 
 class Cause(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "causedonations", blank=True, null=True)
@@ -191,6 +175,8 @@ class Cause(models.Model):
 
     def __str__(self):
         return f'{self.cause} for {self.user}'
+    
+
 
 
 class Org(models.Model):
@@ -216,6 +202,8 @@ class Org(models.Model):
 
     def __str__(self):
         return f'{self.organization} for {self.user}'
+
+
 
 
 
