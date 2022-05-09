@@ -98,6 +98,14 @@ class Record(models.Model):
 
     organization = models.CharField(max_length=200, blank=True)
 
+    @property
+    def alldonated(self):
+        return Record.objects.filter(user=self.user).aggregate(alldonated=Sum('amountdonated'))
+
+    @property
+    def allhours(self):
+        return Record.objects.filter(user=self.user).aggregate(allhours=Sum('hoursdonated'))
+
 
 class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
