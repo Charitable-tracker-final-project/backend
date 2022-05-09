@@ -48,13 +48,6 @@ class Goal(models.Model):
     # def __str__(self):
     #     return self.dgoaltitle
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             fields=["habit_record", "update_date"], name="one_record_per_day")
-    #     ]
-
-
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
     goal = models.ForeignKey(Goal,on_delete=models.CASCADE, null=True, blank=True, related_name="record")
