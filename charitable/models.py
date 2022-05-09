@@ -4,8 +4,8 @@ from datetime import datetime
 from charitable_tracker.storage_backends import PrivateMediaStorage
 from charitable_tracker import settings
 from django.core.mail import send_mail
-from .tasks import mail_create
 from django.db.models import Q, Avg, Max, Min, Sum, Case, When, Value, CharField, F
+from celery.schedules import crontab
 
 class User(AbstractUser):
     
@@ -98,6 +98,14 @@ class Record(models.Model):
 
     organization = models.CharField(max_length=200, blank=True)
 
+    @property
+    def alldonated(self):
+        return Record.objects.filter(user=self.user).aggregate(alldonated=Sum('amountdonated'))
+
+    @property
+    def allhours(self):
+        return Record.objects.filter(user=self.user).aggregate(allhours=Sum('hoursdonated'))
+
 
 class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
@@ -110,7 +118,7 @@ class EmailReminder(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='user')
     email = models.EmailField()
     subscribe = models.BooleanField(default=True)
-    your_reminder = models.CharField(null=True, max_length=1000)
+    message = models.CharField(null=True, max_length=1000)
     WEEK = "Weekly"
     BIWEEKLY = "BiWeekly"
     MONTH = "Monthly"
@@ -119,17 +127,24 @@ class EmailReminder(models.Model):
     interval = models.CharField(max_length=200, blank=True, choices=INTERVAL)
 
     def __str__(self):
-        return self.your_reminder    
+        return self.message
 
-    def mail_create(self):
-        if self.subscribe == True:
-            mail_create.apply_async()
-            # send_mail(
-            #     subject=('Friendly Reminder from Charitable Tracker'),
-            #     message=(f'Hi {self.user}. {self.your_reminder}.'),
-            #     from_email=settings.EMAIL_HOST_USER,
-            #     recipient_list=[self.email]
-            #     )
+def mail_create(reminder_pk):
+    reminder = EmailReminder.objects.get(pk=reminder_pk)
+    send_mail(
+                subject=('Friendly Reminder from Charitable Tracker'),
+                message=(f'Hi {reminder.user}. {reminder.message}.'),
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[reminder.email]
+                )
+    if reminder.interval == 'Weekly' and reminder.subscribe == True:
+            crontab(0,0, day_of_week='sun')
+    elif reminder.interval == 'BiWeekly' and reminder.subscribe == True:
+            crontab(0,0, day_of_month='1,15')
+    elif reminder.interval == 'Monthly' and reminder.subscribe == True:    
+            crontab(0,0, day_of_month='1')
+    elif reminder.interval == 'Yearly' and reminder.subscribe == True:
+            crontab(0,0, month_of_year='5')
 
 class Cause(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "causedonations", blank=True, null=True)
