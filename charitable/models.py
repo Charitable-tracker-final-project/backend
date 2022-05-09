@@ -21,7 +21,7 @@ class Profile(models.Model):
     profile_pic = models.URLField(max_length=500, blank=True)
 
     def __str__(self):
-        return f"Annual Income {str(self.annual_income)}
+        return f"Annual Income {str(self.annual_income)}"
 
 class Goal(models.Model):
     created_at = models.DateField(default=datetime.now)
@@ -93,8 +93,6 @@ class Record(models.Model):
     (ENVIRONMENTAL, "Environmental"),(HEALTH,"Health"),(HUMAN_AND_CIVIL_RIGHTS, "Human and Civil Rights"),(HUMAN_SERVICES, "Human Services"),
     (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
     (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
-
-    cause = models.ForeignKey(Cause, on_delete=models.CASCADE, related_name = "user_profile")
 
     organization = models.CharField(max_length=200, blank=True)
 
