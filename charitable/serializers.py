@@ -189,7 +189,7 @@ class OrgTimeSerializer(serializers.ModelSerializer):
         fields = (
             "organization",
             "total_by_org_time",
-            "all_hours",
+            "allhours",
         )
 
 
@@ -202,7 +202,7 @@ class CauseTimeSerializer(serializers.ModelSerializer):
         fields = (
             "cause",
             "total_by_cause_time",
-            "all_hours",
+            "allhours",
         )
     
     # def get_timedonated(self, instance):
@@ -217,7 +217,7 @@ class CauseDonationSerializer(serializers.ModelSerializer):
         fields = (
             "cause",
             "total_by_cause_donated",
-            "all_donated",
+            "alldonated",
         )
 
 
@@ -238,7 +238,7 @@ class OrgDonationSerializer(serializers.ModelSerializer):
         fields = (
             "organization",
             "total_by_org_donated",
-            "all_donated",
+            "alldonated",
         )
 
 class AllRecords(serializers.ModelSerializer):
