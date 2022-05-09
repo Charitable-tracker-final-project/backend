@@ -94,6 +94,8 @@ class Record(models.Model):
     (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
     (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
 
+    cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
+    
     organization = models.CharField(max_length=200, blank=True)
 
     @property

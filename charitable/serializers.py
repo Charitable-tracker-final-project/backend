@@ -35,9 +35,6 @@ class DonationGoalSerializer(serializers.ModelSerializer):
         
 class DonationRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    fkcause = serializers.SlugRelatedField(
-        queryset=Cause.objects.all(),
-        slug_field='cause')
 
     class Meta:
         model = Record
@@ -46,7 +43,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
             "amountdonated",
             "created_at",
             "organization",
-            "fkcause",
+            "cause",
             "alldonated",
             "imgreciept",
         )
