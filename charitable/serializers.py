@@ -150,29 +150,22 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         )
 
 
-# class OrganizationSerializer(serializers.ModelSerializer):
-#     donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+class OrgSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Goal
-#         fields = (
-#         "organization",
-#         "donationgoal",
-#         "volunteergoal",
-#         )
+    class Meta:
+        model = Org
+        fields = (
+        "organization",
+        )
 
 
-# class CauseSerializer(serializers.ModelSerializer):
-#     cause = serializers.SlugRelatedField(slug_field='title', read_only=True)
-#     volunteergoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+class CauseSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Record
-#         fields = (
-#             "cause",
-#             "donationgoal",
-#             "volunteergoal",
-#         )
+    class Meta:
+        model = Cause
+        fields = (
+            "cause",
+        )
 
     
 
