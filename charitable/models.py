@@ -159,11 +159,11 @@ class Cause(models.Model):
         return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
@@ -186,11 +186,11 @@ class Org(models.Model):
         return Record.objects.filter(user=self.user, organization=self.organization).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
