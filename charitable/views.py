@@ -119,7 +119,7 @@ class DonationRecordListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Record.objects.exclude(amountdonated__isnull=True)
+        return Record.objects.filter(user=self.request.user).exclude(amountdonated__isnull=True)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -141,7 +141,7 @@ class VolunteerRecordListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
-        return Record.objects.exclude(hoursdonated__isnull=True)
+        return Record.objects.filter(user=self.request.user).exclude(hoursdonated__isnull=True)
     
     def perform_create(self, serializer):
         goal = self.request.user.donor.first()
@@ -359,8 +359,7 @@ class AllRecords(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Record.objects.exclude(amountdonated__isnull=True).exclude(hoursdonated__isnull=True).order_by('-created_at')
-    
+        return Record.objects.filter(user=self.request.user).exclude(amountdonated__isnull=True).exclude(hoursdonated__isnull=True).order_by('-created_at')    
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
