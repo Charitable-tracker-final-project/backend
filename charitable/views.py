@@ -1,3 +1,4 @@
+from itertools import filterfalse
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
@@ -67,6 +68,11 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 10
 
+class RecordResultsSetPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+
 class DonationGoalListView(generics.ListCreateAPIView):
     queryset = Goal.objects.all()
     serializer_class = DonationGoalSerializer
@@ -116,6 +122,7 @@ class VolunteerGoalDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class DonationRecordListView(generics.ListCreateAPIView):
     serializer_class = DonationRecordSerializer
+    pagination_class = RecordResultsSetPagination
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
@@ -138,6 +145,7 @@ class DonationRecordDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class VolunteerRecordListView(generics.ListCreateAPIView):
     serializer_class = VolunteerRecordSerializer
+    pagination_class = RecordResultsSetPagination
 
     def get_queryset(self):
         filters = Q(user_id=self.request.user)
@@ -359,7 +367,7 @@ class AllRecords(generics.ListCreateAPIView):
 
     def get_queryset(self):
         filters = Q(user=self.request.user)
-        return Record.objects.filter(user=self.request.user).exclude(amountdonated__isnull=True).exclude(hoursdonated__isnull=True).order_by('-created_at')    
+        return Record.objects.filter(filters)
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 

@@ -23,6 +23,56 @@ class Profile(models.Model):
     def __str__(self):
         return f"Annual Income {str(self.annual_income)}"
 
+
+class Cause(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "causedonations", blank=True, null=True)
+
+    #causedropdownlist
+    ANIMALS = "Animals"
+    ARTS_CULTURE_HUMANITIES = "Arts Culture Humanities"
+    ASIAN_RIGHTS = "Asian Rights"
+    BLACK_RIGHTS = "Black Rights"
+    COMMUNITY_DEVELOPMENT = "Community Development"
+    EDUCATION = "Education"
+    ENVIRONMENTAL = "Environmental"
+    HEALTH = "Health"
+    HUMAN_AND_CIVIL_RIGHTS = "Human and Civil Rights"
+    HUMAN_SERVICES = "Human Services"
+    INTERNATIONAL = "International"
+    LATINO_RIGHTS = "Latino Rights"
+    RESEARCH_AND_PUBLIC_POLICY = "Research and Public Policy"
+    RELIGION = "Religion"
+    WOMENS_RIGHTS = "Women's Rights"
+    CAUSE_DROPDOWN_CHOICES =[(ANIMALS, "Animals"),(ARTS_CULTURE_HUMANITIES, "Arts Culture Humanities"),(ASIAN_RIGHTS,"Asian Rights"),
+    (BLACK_RIGHTS, "Black Rights"),(COMMUNITY_DEVELOPMENT,"Community Development"),(EDUCATION, "Education"),
+    (ENVIRONMENTAL, "Environmental"),(HEALTH,"Health"),(HUMAN_AND_CIVIL_RIGHTS, "Human and Civil Rights"),(HUMAN_SERVICES, "Human Services"),
+    (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
+    (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
+
+    cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
+
+    @property
+    def total_by_cause_donated(self):
+        return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('amountdonated'))
+
+    @property
+    def total_by_cause_time(self):
+        return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('hoursdonated'))
+
+    @property
+    def all_donated(self):
+        return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
+
+    @property
+    def all_hours(self):
+        return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
+
+    def __str__(self):
+        return f'{self.cause} for {self.user}'
+
+
+
+
 class Goal(models.Model):
     created_at = models.DateField(default=datetime.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "donor")
@@ -94,7 +144,7 @@ class Record(models.Model):
     (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
     (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
 
-    cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
+    cause = models.ForeignKey(Cause, on_delete=models.CASCADE, related_name = "user_profile")
 
     organization = models.CharField(max_length=200, blank=True)
 
@@ -146,51 +196,6 @@ def mail_create(reminder_pk):
     elif reminder.interval == 'Yearly' and reminder.subscribe == True:
             crontab(0,0, month_of_year='5')
 
-class Cause(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "causedonations", blank=True, null=True)
-
-    #causedropdownlist
-    ANIMALS = "Animals"
-    ARTS_CULTURE_HUMANITIES = "Arts Culture Humanities"
-    ASIAN_RIGHTS = "Asian Rights"
-    BLACK_RIGHTS = "Black Rights"
-    COMMUNITY_DEVELOPMENT = "Community Development"
-    EDUCATION = "Education"
-    ENVIRONMENTAL = "Environmental"
-    HEALTH = "Health"
-    HUMAN_AND_CIVIL_RIGHTS = "Human and Civil Rights"
-    HUMAN_SERVICES = "Human Services"
-    INTERNATIONAL = "International"
-    LATINO_RIGHTS = "Latino Rights"
-    RESEARCH_AND_PUBLIC_POLICY = "Research and Public Policy"
-    RELIGION = "Religion"
-    WOMENS_RIGHTS = "Women's Rights"
-    CAUSE_DROPDOWN_CHOICES =[(ANIMALS, "Animals"),(ARTS_CULTURE_HUMANITIES, "Arts Culture Humanities"),(ASIAN_RIGHTS,"Asian Rights"),
-    (BLACK_RIGHTS, "Black Rights"),(COMMUNITY_DEVELOPMENT,"Community Development"),(EDUCATION, "Education"),
-    (ENVIRONMENTAL, "Environmental"),(HEALTH,"Health"),(HUMAN_AND_CIVIL_RIGHTS, "Human and Civil Rights"),(HUMAN_SERVICES, "Human Services"),
-    (INTERNATIONAL, "International"),(LATINO_RIGHTS,"Latino Rights"),(RESEARCH_AND_PUBLIC_POLICY, "Research and Public Policy"),
-    (RELIGION, "Religion"),(WOMENS_RIGHTS,"Women's Rights")]
-
-    cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
-
-    @property
-    def total_by_cause_donated(self):
-        return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('amountdonated'))
-
-    @property
-    def total_by_cause_time(self):
-        return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('hoursdonated'))
-
-    @property
-    def all_donated(self):
-        return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
-
-    @property
-    def all_hours(self):
-        return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
-
-    def __str__(self):
-        return f'{self.cause} for {self.user}'
 
 
 class Org(models.Model):
