@@ -50,6 +50,7 @@ from django.db.models import Q, Avg, Max, Min, Sum, Case, When, Value, CharField
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
+from .tasks import mail_create
 
 class GoogleLogin(SocialLoginView): 
     adapter_class = GoogleOAuth2Adapter
@@ -249,7 +250,7 @@ class EmailReminderView(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         reminder = serializer.instance
-        reminder.mail_create()
+        mail_create.apply_async(kwargs={'reminder_pk': reminder.pk})
 
 class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmailReminderSerializer
@@ -261,7 +262,7 @@ class EmailReminderDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         reminder = serializer.instance
-        reminder.mail_create()
+        mail_create.apply_async(kwargs={'reminder_pk': reminder.pk})
 
 
 # class OrganizationTime(generics.ListAPIView):

@@ -17,20 +17,22 @@ def test_email():
                 recipient_list=['inlay.j@gmail.com']
                 )
 
+
 @app.task
 def mail_create(reminder_pk):
-    reminder = EmailReminder.objects.get(pk=reminder_pk)
+    reminder = EmailReminder.objects.get(pk=reminder_pk) 
     send_mail(
-                subject=('Friendly Reminder from Charitable Tracker'),
-                message=(f'Hi {reminder.user}. {reminder.message}.'),
+                subject='Friendly Reminder from Charitable Tracker',
+                message= f'Hi {reminder.user}. {reminder.message}.',
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[reminder.email]
                 )
-    if reminder.interval == 'Weekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_week='sun')
-    elif reminder.interval == 'BiWeekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_month='1,15')
-    elif reminder.interval == 'Monthly' and reminder.subscribe == True:    
-            crontab(0,0, day_of_month='1')
-    elif reminder.interval == 'Yearly' and reminder.subscribe == True:
-            crontab(0,0, month_of_year='5')
+
+app.conf.beat_schedule = {
+    # Executes every Monday morning at 7:30 a.m.
+    'add-every-monday-morning': {
+        'task': 'tasks.mail_create',
+        'schedule': crontab(hour=7, minute=30, day_of_week=1),
+        'args': (16, 16),
+    },
+}
