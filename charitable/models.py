@@ -42,11 +42,6 @@ class Goal(models.Model):
     INTERVAL_DROPDOWN_CHOICES = [(WEEK,"Week"),(MONTH, "Month"), (YEAR, "Year")]
     interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
 
-    # def __str__(self):
-    #     return self.vgoaltitle
-
-    # def __str__(self):
-    #     return self.dgoaltitle
 
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
@@ -159,11 +154,11 @@ class Cause(models.Model):
         return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
@@ -186,11 +181,11 @@ class Org(models.Model):
         return Record.objects.filter(user=self.user, organization=self.organization).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
