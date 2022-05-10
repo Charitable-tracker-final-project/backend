@@ -122,7 +122,6 @@ class EmailReminder(models.Model):
     def __str__(self):
         return self.message
 
-
 class Cause(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "causedonations", blank=True, null=True)
 
