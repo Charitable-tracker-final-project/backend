@@ -35,8 +35,6 @@ class DonationGoalSerializer(serializers.ModelSerializer):
         
 class DonationRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
-    # goal = serializers.SlugRelatedField(slug_field='dgoaltitle', read_only=True )
-    alldonated = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
@@ -50,8 +48,7 @@ class DonationRecordSerializer(serializers.ModelSerializer):
             "imgreciept",
         )
 
-    def get_alldonated(self, goal):
-        return Record.objects.aggregate(alldonated=Sum('amountdonated'))
+    
 
 class VolunteerRecordSerializer(serializers.ModelSerializer):
     created_at=serializers.DateField(format="%Y-%m-%d", required=False)
@@ -67,6 +64,7 @@ class VolunteerRecordSerializer(serializers.ModelSerializer):
             "organization",
             "description",
             "cause",
+            "allhours",
             "imgreciept",
         )
 
@@ -149,29 +147,22 @@ class EmailReminderSerializer(serializers.ModelSerializer):
         )
 
 
-# class OrganizationSerializer(serializers.ModelSerializer):
-#     donationgoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+class OrgSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Goal
-#         fields = (
-#         "organization",
-#         "donationgoal",
-#         "volunteergoal",
-#         )
+    class Meta:
+        model = Org
+        fields = (
+        "organization",
+        )
 
 
-# class CauseSerializer(serializers.ModelSerializer):
-#     cause = serializers.SlugRelatedField(slug_field='title', read_only=True)
-#     volunteergoal = serializers.SlugRelatedField(slug_field='goaltitle', read_only=True)
+class CauseSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Record
-#         fields = (
-#             "cause",
-#             "donationgoal",
-#             "volunteergoal",
-#         )
+    class Meta:
+        model = Cause
+        fields = (
+            "cause",
+        )
 
     
 
@@ -198,7 +189,7 @@ class OrgTimeSerializer(serializers.ModelSerializer):
         fields = (
             "organization",
             "total_by_org_time",
-            "all_hours",
+            "allhours",
         )
 
 
@@ -211,7 +202,7 @@ class CauseTimeSerializer(serializers.ModelSerializer):
         fields = (
             "cause",
             "total_by_cause_time",
-            "all_hours",
+            "allhours",
         )
     
     # def get_timedonated(self, instance):
@@ -226,7 +217,7 @@ class CauseDonationSerializer(serializers.ModelSerializer):
         fields = (
             "cause",
             "total_by_cause_donated",
-            "all_donated",
+            "alldonated",
         )
 
 
@@ -247,7 +238,7 @@ class OrgDonationSerializer(serializers.ModelSerializer):
         fields = (
             "organization",
             "total_by_org_donated",
-            "all_donated",
+            "alldonated",
         )
 
 class AllRecords(serializers.ModelSerializer):

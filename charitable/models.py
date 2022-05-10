@@ -48,13 +48,6 @@ class Goal(models.Model):
     # def __str__(self):
     #     return self.dgoaltitle
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             fields=["habit_record", "update_date"], name="one_record_per_day")
-    #     ]
-
-
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)
     goal = models.ForeignKey(Goal,on_delete=models.CASCADE, null=True, blank=True, related_name="record")
@@ -97,6 +90,14 @@ class Record(models.Model):
     cause = models.CharField(max_length=200, blank= True, choices=CAUSE_DROPDOWN_CHOICES)
 
     organization = models.CharField(max_length=200, blank=True)
+
+    @property
+    def alldonated(self):
+        return Record.objects.filter(user=self.user).aggregate(alldonated=Sum('amountdonated'))
+
+    @property
+    def allhours(self):
+        return Record.objects.filter(user=self.user).aggregate(allhours=Sum('hoursdonated'))
 
 
 class Document(models.Model):
@@ -157,15 +158,17 @@ class Cause(models.Model):
         return Record.objects.filter(user=self.user, cause=self.cause).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
         return f'{self.cause} for {self.user}'
+    
+
 
 
 class Org(models.Model):
@@ -182,15 +185,17 @@ class Org(models.Model):
         return Record.objects.filter(user=self.user, organization=self.organization).aggregate(Sum('hoursdonated'))
 
     @property
-    def all_donated(self):
+    def alldonated(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('amountdonated'))
 
     @property
-    def all_hours(self):
+    def allhours(self):
         return Record.objects.filter(user=self.user).aggregate(Sum('hoursdonated'))
 
     def __str__(self):
         return f'{self.organization} for {self.user}'
+
+
 
 
 
