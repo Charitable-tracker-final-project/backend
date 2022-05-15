@@ -42,11 +42,6 @@ class Goal(models.Model):
     INTERVAL_DROPDOWN_CHOICES = [(WEEK,"Week"),(MONTH, "Month"), (YEAR, "Year")]
     interval = models.CharField(max_length=200, blank=True, choices=INTERVAL_DROPDOWN_CHOICES)
 
-    # def __str__(self):
-    #     return self.vgoaltitle
-
-    # def __str__(self):
-    #     return self.dgoaltitle
 
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "duser", blank=True, null=True)

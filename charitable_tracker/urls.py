@@ -23,7 +23,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
     path("api/Dgoals/", cviews.DonationGoalListView.as_view()),
     path("api/Dgoal/<int:pk>/", cviews.DonationGoalDetailView.as_view()),
     path("api/Vgoals/", cviews.VolunteerGoalListView.as_view()),
@@ -32,14 +31,10 @@ urlpatterns = [
     path("api/Drecord/<int:pk>/", cviews.DonationRecordDetailView.as_view()),
     path("api/Vrecords/", cviews.VolunteerRecordListView.as_view()),
     path("api/Vrecord/<int:pk>/", cviews.VolunteerRecordDetailView.as_view()),
-    path("api/Dbreakdown/<int:pk>/", cviews.DonationGoalBreakdownView.as_view()),
-    path("api/DSumbreakdown/<int:pk>/", cviews.DonationGoalSumBreakdownView.as_view()),
-    path("api/Vbreakdown/<int:pk>/", cviews.VolunteerGoalBreakdownView.as_view()),
     path("api/organizationtime/", cviews.OrgTimeListView.as_view()),
     path("api/organizationdonation/", cviews.OrgDonationListView.as_view()),
     path("api/causetime/", cviews.CauseTimeListView.as_view()),
     path("api/causedonation/", cviews.CauseDonationListView.as_view()),
-    # path("api/donationcausedonationrecord/", cviews.DonationCauseDonationRecord.as_view()),
     path("api/annualincome/", cviews.AnnualIncomeView.as_view()),
     path("api/annualincome/<int:pk>/", cviews.AnnualIncomeDetailView.as_view()),
     path("api/upload/", cviews.DocumentCreateView.as_view()),
@@ -48,9 +43,7 @@ urlpatterns = [
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api/reminders/', cviews.EmailReminderView.as_view()),
     path('api/reminder/<int:pk>/', cviews.EmailReminderDetailView.as_view()),
-    path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login'),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/record-list/', cviews.AllRecords.as_view()),
+    #path('auth/google/', cviews.GoogleLogin.as_view(), name='google_login'),
     path('api/cause/', cviews.CauseListCreateView.as_view()),
     path('api/org/', cviews.OrgListCreateView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

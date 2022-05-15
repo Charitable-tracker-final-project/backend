@@ -26,11 +26,3 @@ def mail_create(reminder_pk):
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[reminder.email]
                 )
-    if reminder.interval == 'Weekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_week='sun')
-    elif reminder.interval == 'BiWeekly' and reminder.subscribe == True:
-            crontab(0,0, day_of_month='1,15')
-    elif reminder.interval == 'Monthly' and reminder.subscribe == True:    
-            crontab(0,0, day_of_month='1')
-    elif reminder.interval == 'Yearly' and reminder.subscribe == True:
-            crontab(0,0, month_of_year='5')
